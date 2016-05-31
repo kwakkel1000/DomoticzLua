@@ -1,3 +1,5 @@
+commandArray = {}
+
 if (otherdevices["Film"] == "On" or otherdevices["Chromecast"] == "On") then
     if (otherdevices['S Woonkamer Media'] == 'Off') then
         commandArray['S Woonkamer Media'] = 'On'
@@ -10,3 +12,5 @@ else
         end
     end
 end
+
+return commandArray
