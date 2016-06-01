@@ -36,11 +36,13 @@ end
 function setDimLevel(Lux, Dimmer, WantedLux)
     MeasuredLux = 0
     luxUpdates = {}
+    luxValues = 0
     for luxKey, luxValue in pairs(Lux) do
+        luxValues = luxValues + 1
         table.insert(luxUpdates, glib.getTime(otherdevices_lastupdate[luxValue]))
         MeasuredLux = MeasuredLux + tonumber(otherdevices_svalues[luxValue])
     end
-    MeasuredLux = MeasuredLux / table.getn(Lux)
+    MeasuredLux = MeasuredLux / luxValues
     for dimmerKey, dimmerValue in pairs(Dimmer) do
         dimmerUpdate = glib.getTime(otherdevices_lastupdate[dimmerValue])
         luxUpdated = false
