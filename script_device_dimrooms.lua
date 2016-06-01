@@ -71,7 +71,6 @@ function setDimLevel(Lux, Dimmer, WantedLux)
         end
     end
 end
-lbvd
 
 function motionTurnOff(Motion, Dimmer)
     motionDetected = false
