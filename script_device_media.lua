@@ -1,7 +1,6 @@
 package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua'
-print(package.path)
 glib = require('glib') 
-print( _LOADED["glib"])
+print(glib)
 
 commandArray = {}
 
