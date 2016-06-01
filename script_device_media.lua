@@ -1,4 +1,5 @@
-package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua' 
+package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua'
+print(package.path)
 glib = require('glib') 
 
 commandArray = {}
