@@ -1,6 +1,6 @@
 package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua'
-glib = require('glib') 
-print(glib)
+glibFunctions = require('glib') 
+print(glibFunctions)
 
 commandArray = {}
 
@@ -9,7 +9,7 @@ if (otherdevices["Film"] == "On" or otherdevices["Chromecast"] == "On") then
         commandArray['S Woonkamer Media'] = 'On'
     end
 else
-    timeDiff = os.difftime (os.time(), glib.getTime(otherdevices_lastupdate["Chromecast"]))
+    timeDiff = os.difftime (os.time(), glibFunctions.getTime(otherdevices_lastupdate["Chromecast"]))
     if (timeDiff > 300 ) then
         if (otherdevices['S Woonkamer Media'] ~= 'Off') then
             commandArray['S Woonkamer Media'] = 'Off'
