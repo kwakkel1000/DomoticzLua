@@ -106,26 +106,25 @@ if (otherdevices["Film"] == "On" and uservariables['ChromeState'] == "PLAYING") 
         commandArray['DS Eetkamer'] = 'Off'
     end
 --    setDimLevel('L Woonkamer', 'DS Woonkamer', uservariables['luxLevel3'])
-    setDimLevel('L Woonkamer', 'DS Woonkamer2', uservariables['luxLevel3'])
-    setDimLevel('L Woonkamer', 'DS Woonkamer3', uservariables['luxLevel3'])
+    setDimLevel({'L Woonkamer'}, {'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['luxLevel3'])
 --    setDimLevel('L Eetkamer', 'DS Eetkamer', uservariables['luxLevel3'])
 else
     if (not motionTurnOff({'M Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'})) then
-        setDimLevel('L Woonkamer', {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['wantedLux'])
+        setDimLevel({'L Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['wantedLux'])
     end
     if (not motionTurnOff({'M Eetkamer'}, {'DS Eetkamer'})) then
-        setDimLevel('L Eetkamer', {'DS Eetkamer'}, uservariables['wantedLux'])
+        setDimLevel({'L Eetkamer'}, {'DS Eetkamer'}, uservariables['wantedLux'])
     end
 end
 
 if (not motionTurnOff({'M Gang'}, {'DS Gang'})) then
-    setDimLevel('L Gang', {'DS Gang'}, uservariables['wantedLux'])
+    setDimLevel({'L Gang'}, {'DS Gang'}, uservariables['wantedLux'])
 end
 if (not motionTurnOff({'M Overloop'}, {'DS Overloop'})) then
-    setDimLevel('L Overloop', {'DS Overloop'}, (uservariables['wantedLux'] / 2))
+    setDimLevel({'L Overloop'}, {'DS Overloop'}, (uservariables['wantedLux'] / 2))
 end
 if (not motionTurnOff({'M Hobby'}, {'DS Hobby'})) then
-    setDimLevel('L Hobby', {'DS Hobby'}, uservariables['wantedLux'])
+    setDimLevel({'L Hobby'}, {'DS Hobby'}, uservariables['wantedLux'])
 end
 
 return commandArray
