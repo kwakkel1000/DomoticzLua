@@ -1,4 +1,5 @@
-glib = (loadfile "/home/pi/domoticz/scripts/lua/glib.lua")()
+package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua' 
+glib = require('glib') 
 
 commandArray = {}
 

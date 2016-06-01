@@ -1,6 +1,6 @@
-local glib = {}
+local glib = {};
 
-function getTime(s)
+function glib.getTime(s)
    year = string.sub(s, 1, 4)
    month = string.sub(s, 6, 7)
    day = string.sub(s, 9, 10)
@@ -8,6 +8,14 @@ function getTime(s)
    minutes = string.sub(s, 15, 16)
    seconds = string.sub(s, 18, 19)
    return os.time{year=year, month=month, day=day, hour=hour, min=minutes, sec=seconds}
+end
+
+function glib.round(val, decimal)
+    if (decimal) then
+        return math.floor( (val * 10^decimal) + 0.5) / (10^decimal)
+    else
+        return math.floor(val+0.5)
+    end
 end
 
 return glib
