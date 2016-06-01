@@ -111,22 +111,32 @@ if (otherdevices["Film"] == "On" and uservariables['ChromeState'] == "PLAYING") 
     setDimLevel({'L Woonkamer'}, {'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['luxLevel3'])
 --    setDimLevel('L Eetkamer', 'DS Eetkamer', uservariables['luxLevel3'])
 else
-    if (not motionTurnOff({'M Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'})) then
-        setDimLevel({'L Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['wantedLux'])
+    if (devicechanged['Film'] ~= nil or devicechanged['ChromeState'] ~= nil or devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil) then
+        if (not motionTurnOff({'M Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'})) then
+            setDimLevel({'L Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['wantedLux'])
+        end
     end
-    if (not motionTurnOff({'M Eetkamer'}, {'DS Eetkamer'})) then
-        setDimLevel({'L Eetkamer'}, {'DS Eetkamer'}, uservariables['wantedLux'])
+    if (devicechanged['Film'] ~= nil or devicechanged['ChromeState'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil) then
+        if (not motionTurnOff({'M Eetkamer'}, {'DS Eetkamer'})) then
+            setDimLevel({'L Eetkamer'}, {'DS Eetkamer'}, uservariables['wantedLux'])
+        end
     end
 end
 
-if (not motionTurnOff({'M Gang'}, {'DS Gang'})) then
-    setDimLevel({'L Gang'}, {'DS Gang'}, uservariables['wantedLux'])
+if (devicechanged['M Gang'] ~= nil or devicechanged['L Gang'] ~= nil) then
+    if (not motionTurnOff({'M Gang'}, {'DS Gang'})) then
+        setDimLevel({'L Gang'}, {'DS Gang'}, uservariables['wantedLux'])
+    end
 end
-if (not motionTurnOff({'M Overloop'}, {'DS Overloop'})) then
-    setDimLevel({'L Overloop'}, {'DS Overloop'}, (uservariables['wantedLux'] / 2))
+if (devicechanged['M Overloop'] ~= nil or devicechanged['L Overloop'] ~= nil) then
+    if (not motionTurnOff({'M Overloop'}, {'DS Overloop'})) then
+        setDimLevel({'L Overloop'}, {'DS Overloop'}, (uservariables['wantedLux'] / 2))
+    end
 end
-if (not motionTurnOff({'M Hobby'}, {'DS Hobby'})) then
-    setDimLevel({'L Hobby'}, {'DS Hobby'}, uservariables['wantedLux'])
+if (devicechanged['M Hobby'] ~= nil or devicechanged['L Hobby'] ~= nil) then
+    if (not motionTurnOff({'M Hobby'}, {'DS Hobby'})) then
+        setDimLevel({'L Hobby'}, {'DS Hobby'}, uservariables['wantedLux'])
+    end
 end
 
 return commandArray
