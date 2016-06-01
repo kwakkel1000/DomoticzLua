@@ -1,14 +1,7 @@
-commandArray = {}
+package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua' 
+glib = require('glib') 
 
-function getTime(s)
-   year = string.sub(s, 1, 4)
-   month = string.sub(s, 6, 7)
-   day = string.sub(s, 9, 10)
-   hour = string.sub(s, 12, 13)
-   minutes = string.sub(s, 15, 16)
-   seconds = string.sub(s, 18, 19)
-   return os.time{year=year, month=month, day=day, hour=hour, min=minutes, sec=seconds}
-end
+commandArray = {}
 
 function calculateWantedDim(MeasuredLux, WantedLux, PrevDimmerLevel)
     if (MeasuredLux ~= WantedLux) then
@@ -42,7 +35,7 @@ end
 
 function setDimLevel(Lux, Dimmer, WantedLux)
     MeasuredLux = tonumber(otherdevices_svalues[Lux])
-    timeDiff = os.difftime (getTime(otherdevices_lastupdate[Lux]), getTime(otherdevices_lastupdate[Dimmer]))
+    timeDiff = os.difftime (glib.getTime(otherdevices_lastupdate[Lux]), glib.getTime(otherdevices_lastupdate[Dimmer]))
     if (timeDiff > 0) then
         WantedDimLevel = calculateWantedDim(MeasuredLux, WantedLux, tonumber(otherdevices_svalues[Dimmer]))
         if (WantedDimLevel ~= -1) then
