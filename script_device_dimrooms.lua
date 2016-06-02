@@ -95,7 +95,7 @@ function motionTurnOff(Motion, Dimmer)
 end
 
 if (otherdevices["Film"] == "On" and uservariables['ChromeState'] == "PLAYING") then
-    if (devicechanged['Film'] ~= nil or devicechanged['ChromeState'] ~= nil or devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil) then
+    if (devicechanged['Film'] ~= nil or os.difftime (os.time(), glib.getTime(uservariables_lastupdate["ChromeState"])) < 5 or devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil) then
 --        print('film of eetkamer change')
         if (otherdevices['DS Woonkamer'] ~= 'Off') then
             commandArray['DS Woonkamer'] = 'Off'
@@ -108,7 +108,7 @@ if (otherdevices["Film"] == "On" and uservariables['ChromeState'] == "PLAYING") 
 --        end
         setDimLevel({'L Woonkamer'}, {'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['luxLevel3'])
     end
-    if (devicechanged['Film'] ~= nil or devicechanged['ChromeState'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil) then
+    if (devicechanged['Film'] ~= nil or os.difftime (os.time(), glib.getTime(uservariables_lastupdate["ChromeState"])) < 5 or devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil) then
 --        print('film of eetkamer change')
         if (otherdevices['DS Eetkamer'] ~= 'Off') then
             commandArray['DS Eetkamer'] = 'Off'
@@ -116,13 +116,13 @@ if (otherdevices["Film"] == "On" and uservariables['ChromeState'] == "PLAYING") 
 --        setDimLevel('L Eetkamer', 'DS Eetkamer', uservariables['luxLevel3'])
     end
 else
-    if (devicechanged['Film'] ~= nil or devicechanged['ChromeState'] ~= nil or devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil) then
+    if (devicechanged['Film'] ~= nil or os.difftime (os.time(), glib.getTime(uservariables_lastupdate["ChromeState"])) < 5 or devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil) then
 --        print('film of woonkamer change')
         if (not motionTurnOff({'M Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'})) then
             setDimLevel({'L Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['wantedLux'])
         end
     end
-    if (devicechanged['Film'] ~= nil or devicechanged['ChromeState'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil) then
+    if (devicechanged['Film'] ~= nil or os.difftime (os.time(), glib.getTime(uservariables_lastupdate["ChromeState"])) < 5 or devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil) then
 --        print('film of eetkamer change')
         if (not motionTurnOff({'M Eetkamer'}, {'DS Eetkamer'})) then
             setDimLevel({'L Eetkamer'}, {'DS Eetkamer'}, uservariables['wantedLux'])
