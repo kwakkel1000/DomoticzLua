@@ -139,5 +139,8 @@ if (devicechanged['M Hobby'] ~= nil or devicechanged['L Hobby'] ~= nil) then
     end
 end
 
+for key, value in pairs(devicechanged) do
+    print('changed device: '..key..' value: '..value)
+end
 return commandArray
 
