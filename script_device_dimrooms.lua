@@ -95,21 +95,26 @@ function motionTurnOff(Motion, Dimmer)
 end
 
 if (otherdevices["Film"] == "On" and uservariables['ChromeState'] == "PLAYING") then
-    if (otherdevices['DS Woonkamer'] ~= 'Off') then
-        commandArray['DS Woonkamer'] = 'Off'
+    if (devicechanged['Film'] ~= nil or devicechanged['ChromeState'] ~= nil or devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil) then
+        print('film of eetkamer change')
+        if (otherdevices['DS Woonkamer'] ~= 'Off') then
+            commandArray['DS Woonkamer'] = 'Off'
+        end
+--        if (otherdevices['DS Woonkamer2'] ~= 'Off') then
+--            commandArray['DS Woonkamer2'] = 'Off'
+--        end
+--        if (otherdevices['DS Woonkamer3'] ~= 'Off') then
+--            commandArray['DS Woonkamer3'] = 'Off'
+--        end
+        setDimLevel({'L Woonkamer'}, {'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['luxLevel3'])
     end
---    if (otherdevices['DS Woonkamer2'] ~= 'Off') then
---        commandArray['DS Woonkamer2'] = 'Off'
---    end
---    if (otherdevices['DS Woonkamer3'] ~= 'Off') then
---        commandArray['DS Woonkamer3'] = 'Off'
---    end
-    if (otherdevices['DS Eetkamer'] ~= 'Off') then
-        commandArray['DS Eetkamer'] = 'Off'
+    if (devicechanged['Film'] ~= nil or devicechanged['ChromeState'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil) then
+        print('film of eetkamer change')
+        if (otherdevices['DS Eetkamer'] ~= 'Off') then
+            commandArray['DS Eetkamer'] = 'Off'
+        end
+--        setDimLevel('L Eetkamer', 'DS Eetkamer', uservariables['luxLevel3'])
     end
---    setDimLevel('L Woonkamer', 'DS Woonkamer', uservariables['luxLevel3'])
-    setDimLevel({'L Woonkamer'}, {'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['luxLevel3'])
---    setDimLevel('L Eetkamer', 'DS Eetkamer', uservariables['luxLevel3'])
 else
     if (devicechanged['Film'] ~= nil or devicechanged['ChromeState'] ~= nil or devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil) then
         print('film of woonkamer change')
