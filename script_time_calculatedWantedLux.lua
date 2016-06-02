@@ -26,6 +26,7 @@ else
 end
 calculatedWantedLux = math.floor(calculatedWantedLux + 0.5)
 if (calculatedWantedLux ~= uservariables['wantedLux']) then
+    print('wantedLux: '..tostring(calculatedWantedLux))
     commandArray['Variable:wantedLux'] = tostring(calculatedWantedLux)
 end
 
