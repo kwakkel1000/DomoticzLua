@@ -1,7 +1,7 @@
 package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua' 
 glib = require('glib') 
 
-uservarLastUpdateTime = 10
+uservarLastUpdateTime = 1
 
 commandArray = {}
 
