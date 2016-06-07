@@ -1,6 +1,8 @@
 package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua' 
 glib = require('glib') 
 
+uservarLastUpdateTime = 10
+
 commandArray = {}
 
 function calculateWantedDim(MeasuredLux, WantedLux, PrevDimmerLevel)
@@ -94,9 +96,10 @@ function motionTurnOff(Motion, Dimmer)
     end
 end
 
-if (otherdevices["Film"] == "On" and uservariables['ChromeState'] == "PLAYING") then
-    if (devicechanged['Film'] ~= nil or os.difftime (os.time(), glib.getTime(uservariables_lastupdate["ChromeState"])) < 5 or devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil) then
---        print('film of eetkamer change')
+-- WOONKAMER
+if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil or devicechanged['Film'] ~= nil or os.difftime (os.time(), glib.getTime(uservariables_lastupdate["ChromeState"])) < uservarLastUpdateTime) then
+    print('film of woonkamer change')
+    if (otherdevices["Film"] == "On" and uservariables['ChromeState'] == "PLAYING") then
         if (otherdevices['DS Woonkamer'] ~= 'Off') then
             commandArray['DS Woonkamer'] = 'Off'
         end
@@ -107,41 +110,45 @@ if (otherdevices["Film"] == "On" and uservariables['ChromeState'] == "PLAYING") 
 --            commandArray['DS Woonkamer3'] = 'Off'
 --        end
         setDimLevel({'L Woonkamer'}, {'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['luxLevel3'])
-    end
-    if (devicechanged['Film'] ~= nil or os.difftime (os.time(), glib.getTime(uservariables_lastupdate["ChromeState"])) < 5 or devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil) then
---        print('film of eetkamer change')
-        if (otherdevices['DS Eetkamer'] ~= 'Off') then
-            commandArray['DS Eetkamer'] = 'Off'
-        end
---        setDimLevel('L Eetkamer', 'DS Eetkamer', uservariables['luxLevel3'])
-    end
-else
-    if (devicechanged['Film'] ~= nil or os.difftime (os.time(), glib.getTime(uservariables_lastupdate["ChromeState"])) < 5 or devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil) then
---        print('film of woonkamer change')
+    else
         if (not motionTurnOff({'M Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'})) then
             setDimLevel({'L Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['wantedLux'])
         end
     end
-    if (devicechanged['Film'] ~= nil or os.difftime (os.time(), glib.getTime(uservariables_lastupdate["ChromeState"])) < 5 or devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil) then
---        print('film of eetkamer change')
+end
+
+-- EETKAMER
+if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or os.difftime (os.time(), glib.getTime(uservariables_lastupdate["ChromeState"])) < uservarLastUpdateTime) then
+    print('film of eetkamer change')
+    if (otherdevices["Film"] == "On" and uservariables['ChromeState'] == "PLAYING") then
+        if (otherdevices['DS Eetkamer'] ~= 'Off') then
+            commandArray['DS Eetkamer'] = 'Off'
+        end
+--        setDimLevel('L Eetkamer', 'DS Eetkamer', uservariables['luxLevel3'])
+    else
         if (not motionTurnOff({'M Eetkamer'}, {'DS Eetkamer'})) then
             setDimLevel({'L Eetkamer'}, {'DS Eetkamer'}, uservariables['wantedLux'])
         end
     end
 end
 
+-- GANG
 if (devicechanged['M Gang'] ~= nil or devicechanged['L Gang'] ~= nil) then
 --    print('gang change')
     if (not motionTurnOff({'M Gang'}, {'DS Gang'})) then
         setDimLevel({'L Gang'}, {'DS Gang'}, uservariables['wantedLux'])
     end
 end
+
+-- OVERLOOP
 if (devicechanged['M Overloop'] ~= nil or devicechanged['L Overloop'] ~= nil) then
 --    print('overloop change')
     if (not motionTurnOff({'M Overloop'}, {'DS Overloop'})) then
         setDimLevel({'L Overloop'}, {'DS Overloop'}, (uservariables['wantedLux'] / 2))
     end
 end
+
+-- HOBBY
 if (devicechanged['M Hobby'] ~= nil or devicechanged['L Hobby'] ~= nil) then
 --    print('hobby change')
     if (not motionTurnOff({'M Hobby'}, {'DS Hobby'})) then
