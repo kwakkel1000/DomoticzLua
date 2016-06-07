@@ -1,8 +1,6 @@
 package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua' 
 glib = require('glib') 
 
-uservarLastUpdateTime = 1
-
 commandArray = {}
 
 function calculateWantedDim(MeasuredLux, WantedLux, PrevDimmerLevel)
@@ -97,9 +95,9 @@ function motionTurnOff(Motion, Dimmer)
 end
 
 -- WOONKAMER
-if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil or devicechanged['Film'] ~= nil or os.difftime (os.time(), glib.getTime(uservariables_lastupdate["ChromeState"])) < uservarLastUpdateTime) then
+if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
     print('film of woonkamer change')
-    if (otherdevices["Film"] == "On" and uservariables['ChromeState'] == "PLAYING") then
+    if (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On") then
         if (otherdevices['DS Woonkamer'] ~= 'Off') then
             commandArray['DS Woonkamer'] = 'Off'
         end
@@ -118,9 +116,9 @@ if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil o
 end
 
 -- EETKAMER
-if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or os.difftime (os.time(), glib.getTime(uservariables_lastupdate["ChromeState"])) < uservarLastUpdateTime) then
+if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
     print('film of eetkamer change')
-    if (otherdevices["Film"] == "On" and uservariables['ChromeState'] == "PLAYING") then
+    if (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On") then
         if (otherdevices['DS Eetkamer'] ~= 'Off') then
             commandArray['DS Eetkamer'] = 'Off'
         end
