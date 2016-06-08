@@ -22,14 +22,11 @@ function motion(Motion, Fan)
     end
     if (motionDetected == true) then
         for key, value in value(Fan) do
-            glib.turnOn(fanValue)
+            glib.turnOn(value)
         end
     else
         for key, value in pairs(Fan) do
-            if (otherdevices[value] ~= 'Off') then
-                commandArray[value] = 'Off'
-                print('turn '..value..' off (no motion)')
-            end
+            glib.turnOff(value)
         end
     end
 end
