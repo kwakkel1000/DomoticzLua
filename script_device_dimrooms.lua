@@ -142,10 +142,12 @@ end
 
 
 -- ACHTERTUIN
-if (timeofday['Nighttime']) then
-    setDimLevel({'L Eetkamer'}, {'DS Achtertuin'}, uservariables['wantedLux']) -- L Eetkamer should change
-else
-    glib.turnOff('DS Achtertuin')
+if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer']) then
+    if (timeofday['Nighttime']) then
+        setDimLevel({'L Eetkamer'}, {'DS Achtertuin'}, uservariables['wantedLux']) -- L Eetkamer should change
+    else
+        glib.turnOff('DS Achtertuin')
+    end
 end
 
 return commandArray
