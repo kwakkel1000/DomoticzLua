@@ -39,4 +39,16 @@ function glib.moviePlaying()
     return playing
 end
 
+function glib.turnOn(device)
+    if (otherdevices[device] == 'Off') then
+        commandArray[device] = 'On'
+    end
+end
+
+function glib.turnOff(device)
+    if (otherdevices[device] ~= 'Off') then
+        commandArray[device] = 'Off'
+    end
+end
+
 return glib

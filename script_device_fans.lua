@@ -21,11 +21,8 @@ function motion(Motion, Fan)
         end
     end
     if (motionDetected == true) then
-        for key, value in pairs(Fan) do
-            if (otherdevices[value] == 'Off') then
-                commandArray[value] = 'On'
-                print('turn '..value..' on (motion)')
-            end
+        for key, value in value(Fan) do
+            glib.turnOn(fanValue)
         end
     else
         for key, value in pairs(Fan) do
@@ -40,23 +37,17 @@ end
 function setFan(temp, fans, motions, movie)
     if ((thermostaatValue + hotOffset) < temp) then
         for fanKey, fanValue in pairs(fans) do
-            if (otherdevices[fanValue] == 'Off') then
-                commandArray[fanValue] = 'On'
-            end
+            glib.turnOn(fanValue)
         end
     elseif (glib.moviePlaying and (thermostaatValue + movieOffset) > temp) then
         for fanKey, fanValue in pairs(fans) do
-            if (otherdevices[fanValue] ~= 'Off') then
-                commandArray[fanValue] = 'Off'
-            end
+            glib.turnOff(fanValue)
         end
     elseif ((not glib.moviePlaying) and thermostaatValue < temp) then
         motion(motions, fans)
     else
         for fanKey, fanValue in pairs(fans) do
-            if (otherdevices[fanValue] ~= 'Off') then
-                commandArray[fanValue] = 'Off'
-            end
+            glib.turnOff(fanValue)
         end
     end
 end
@@ -79,18 +70,14 @@ end
 
 -- BADKAMER
 if ((hour == 6 and minute >= 30) or (hour == 9) or (hour == 8 and minute <= 59)) then
-    if (otherdevices['S Badkamerfan'] == 'Off') then
-        commandArray['S Badkamerfan'] = 'On'
-    end
+    glib.turnOn('S Badkamerfan')
 else
 --    if (devicechanged['M Badkamer'] ~= nil or devicechanged['TH Badkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil) then
 --        badkamerTemp, badkamerHumidity, badkamerVaag = otherdevices_svalues['TH Badkamer']:match("([^;]+);([^;]+);([^;]+)")
 --        temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})
 --        setFan(temp, {'S Badkamerfan'}, {'M Badkamer'}, false)
 --    end
-    if (otherdevices['S Badkamerfan'] ~= 'Off') then -- temporary
-        commandArray['S Badkamerfan'] = 'Off' -- temporary
-    end -- temporary
+    glib.turnOff('S Badkamerfan') -- temporary
 end
 
 return commandArray

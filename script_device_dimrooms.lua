@@ -59,10 +59,7 @@ function setDimLevel(Lux, Dimmer, WantedLux)
             if (WantedDimLevel ~= -1) then
                 print('Dimmer: '..dimmerValue..' WantedDimLevel '..tostring(WantedDimLevel))
                 if (WantedDimLevel < 10) then
-                    if (otherdevices[dimmerValue] ~= "Off") then
-                        commandArray[dimmerValue] = 'Off'
-                        print('turn '..dimmerValue..' off')
-                    end
+                    glib.turnOff(dimmerValue)
                 else
                     commandArray[dimmerValue] = 'Set Level '..tostring(WantedDimLevel)
                     print('set dim level for '..dimmerValue..' to '..tostring(WantedDimLevel))
@@ -88,10 +85,7 @@ function motionTurnOff(Motion, Dimmer)
         return false
     else
         for key, value in pairs(Dimmer) do
-            if (otherdevices[value] ~= 'Off') then
-                commandArray[value] = 'Off'
-                print('turn '..value..' off (no motion)')
-            end
+            glib.turnOff(value)
         end
         return true
     end
@@ -100,15 +94,9 @@ end
 -- WOONKAMER
 if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
     if (glib.moviePlaying()) then
-        if (otherdevices['DS Woonkamer'] ~= 'Off') then
-            commandArray['DS Woonkamer'] = 'Off'
-        end
---        if (otherdevices['DS Woonkamer2'] ~= 'Off') then
---            commandArray['DS Woonkamer2'] = 'Off'
---        end
---        if (otherdevices['DS Woonkamer3'] ~= 'Off') then
---            commandArray['DS Woonkamer3'] = 'Off'
---        end
+        glib.turnOff('DS Woonkamer')
+--        glib.turnOff('DS Woonkamer2')
+--        glib.turnOff('DS Woonkamer3')
         setDimLevel({'L Woonkamer'}, {'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['luxLevel3'])
     else
         if (not motionTurnOff({'M Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'})) then
@@ -120,12 +108,8 @@ end
 -- EETKAMER
 if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
     if (glib.moviePlaying()) then
-        if (otherdevices['DS Eetkamer'] ~= 'Off') then
-            commandArray['DS Eetkamer'] = 'Off'
-        end
-        if (otherdevices['DS Bijkeuken'] ~= 'Off') then
-            commandArray['DS Bijkeuken'] = 'Off'
-        end
+        glib.turnOff('DS Eetkamer')
+        glib.turnOff('DS Bijkeuken')
 --        setDimLevel({'L Eetkamer'}, {'DS Eetkamer', 'DS Bijkeuken'}, uservariables['wantedLux3'])
     else
         if (not motionTurnOff({'M Eetkamer'}, {'DS Eetkamer', 'DS Bijkeuken'})) then
@@ -167,9 +151,7 @@ end
 if (timeofday['Nighttime']) then
     setDimLevel({'L Eetkamer'}, {'DS Achtertuin'}, uservariables['wantedLux']) -- L Eetkamer should change
 else
-    if (otherdevices['DS Achtertuin'] ~= 'Off') then
-        commandArray['DS Achtertuin'] = 'Off'
-    end
+    glib.turnOff('DS Achtertuin')
 end
 
 return commandArray
