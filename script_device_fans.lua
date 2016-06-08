@@ -30,7 +30,7 @@ end
 thermostaat = tonumber(otherdevices_svalues[Thermostaat])
 
 -- WOONKAMER
-if (devicechanged['M Woonkamer'] ~= nil or devicechanged['TH Woonkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
+if (devicechanged['M Woonkamer'] ~= nil or devicechanged['TH Woonkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
     temp, humidity, vaag = otherdevices_svalues['TH Woonkamer']:match("([^;]+);([^;]+);([^;]+)")
     if ((thermostaat + 5) < tonumber(temp)) then
         if (otherdevices['S Woonkamerfan'] == 'Off') then
@@ -52,7 +52,7 @@ end
 
 
 -- SLAAPKAMER
-if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['TH Slaapkamer'] ~= nil) then
+if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['TH Slaapkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil) then
     temp, humidity, vaag = otherdevices_svalues['TH Slaapkamer']:match("([^;]+);([^;]+);([^;]+)")
     if ((thermostaat + 5) < tonumber(temp)) then
         if (otherdevices['S Slaapkamerfan'] == 'Off') then
@@ -70,7 +70,7 @@ end
 
 
 -- BADKAMER
---if (devicechanged['M Badkamer'] ~= nil or devicechanged['TH Badkamer'] ~= nil) then
+--if (devicechanged['M Badkamer'] ~= nil or devicechanged['TH Badkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil) then
 --    temp, humidity, vaag = otherdevices_svalues['TH Slaapkamer']:match("([^;]+);([^;]+);([^;]+)")
 --    if ((thermostaat + 5) < tonumber(temp)) then
 --        if (otherdevices['S Slaapkamerfan'] == 'Off') then
