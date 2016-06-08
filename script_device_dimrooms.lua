@@ -90,7 +90,7 @@ function motionTurnOff(Motion, Dimmer)
         for key, value in pairs(Dimmer) do
             dimmers = dimmers + 1
             if (otherdevices[value] ~= 'Off') then
-                commandArray[value] = 'Off AFTER '..dimmers'
+                commandArray[value] = 'Off AFTER '..dimmers
                 print('turn '..value..' off (no motion)')
             end
         end
