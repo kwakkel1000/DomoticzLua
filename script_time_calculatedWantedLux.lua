@@ -30,12 +30,14 @@ if (tillMidDay < tillMidDay) then
     if (dayTimeMinutes < 0) then
         dayTimeMinutes = dayTimeMinutes + 1440
     end
+    print('its closer to midday, dayLength: '..tostring(dayTimeMinutes))
     calculatedWantedLux = ((tillMidDay / dayTimeMinutes) * luxDiff) + uservariables['luxLevel2'] 
 else
     nightTimeMinutes = midNight - midDay
     if (nightTimeMinutes < 0) then
         nightTimeMinutes = nightTimeMinutes + 1440
     end
+    print('its closer to midnight, nightLength: '..tostring(nightTimeMinutes))
     calculatedWantedLux = ((tillMidDay / nightTimeMinutes) * luxDiff) + uservariables['luxLevel2'] 
 end
 calculatedWantedLux = math.floor(calculatedWantedLux + 0.5)
