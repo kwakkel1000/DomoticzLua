@@ -42,12 +42,14 @@ end
 function glib.turnOn(device)
     if (otherdevices[device] == 'Off') then
         commandArray[device] = 'On'
+        print('turn on: '..device)
     end
 end
 
 function glib.turnOff(device)
     if (otherdevices[device] ~= 'Off') then
         commandArray[device] = 'Off'
+        print('turn off: '..device)
     end
 end
 
