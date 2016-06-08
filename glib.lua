@@ -18,4 +18,24 @@ function glib.round(val, decimal)
     end
 end
 
+
+function glib.getAverage(values)
+    amount = 0
+    tmpValue = 0
+    for key, value in pairs(values) do
+        tmpValue = tmpValue + 1
+        tmpValue = tmpValue + value
+    end
+    tmpValue = tmpValue / amount
+    return tmpValue
+end
+
+function glib.moviePlaying()
+    playing = false
+    if (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On") then
+        playing = true
+    end
+    return playing
+end
+
 return glib

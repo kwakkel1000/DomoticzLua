@@ -36,13 +36,12 @@ end
 function setDimLevel(Lux, Dimmer, WantedLux)
     MeasuredLux = 0
     luxUpdates = {}
-    luxValues = 0
+    luxValues = {}
     for luxKey, luxValue in pairs(Lux) do
-        luxValues = luxValues + 1
+        luxValues.insert(tonumber(otherdevices_svalues[luxValue]))
         table.insert(luxUpdates, glib.getTime(otherdevices_lastupdate[luxValue]))
-        MeasuredLux = MeasuredLux + tonumber(otherdevices_svalues[luxValue])
     end
-    MeasuredLux = MeasuredLux / luxValues
+    MeasuredLux = glib.getAverage(luxValues)
     for dimmerKey, dimmerValue in pairs(Dimmer) do
         dimmerUpdate = glib.getTime(otherdevices_lastupdate[dimmerValue])
         luxUpdated = false
@@ -101,7 +100,7 @@ end
 -- WOONKAMER
 if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
     print('film of woonkamer change')
-    if (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On") then
+    if (glib.moviePlaying()) then
         if (otherdevices['DS Woonkamer'] ~= 'Off') then
             commandArray['DS Woonkamer'] = 'Off'
         end
@@ -122,7 +121,7 @@ end
 -- EETKAMER
 if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
     print('film of eetkamer change')
-    if (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On") then
+    if (glib.moviePlaying()) then
         if (otherdevices['DS Eetkamer'] ~= 'Off') then
             commandArray['DS Eetkamer'] = 'Off'
         end

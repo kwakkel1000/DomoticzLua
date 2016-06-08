@@ -29,59 +29,46 @@ function motion(Motion, Fan)
     end
 end
 
--- WOONKAMER
-if (devicechanged['M Woonkamer'] ~= nil or devicechanged['TH Woonkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
-    temp, humidity, vaag = otherdevices_svalues['TH Woonkamer']:match("([^;]+);([^;]+);([^;]+)")
-    if ((thermostaatValue + 5) < tonumber(temp)) then
-        if (otherdevices['S Woonkamerfan'] == 'Off') then
-            commandArray['S Woonkamerfan'] = 'On'
+function setFan(temp, fans, motions, movie)
+    if ((thermostaatValue + 5) < temp) then
+        for fanKey, fanValue in pairs(fans) do
+            if (otherdevices[fanValue] == 'Off') then
+                commandArray[fanValue] = 'On'
+            end
         end
-    elseif (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On" and (thermostaatValue + 2) > tonumber(temp)) then
-        if (otherdevices['S Woonkamerfan'] ~= 'Off') then
-            commandArray['S Woonkamerfan'] = 'Off'
+    elseif (movie and (thermostaatValue + 2) > temp) then
+        for fanKey, fanValue in pairs(fans) do
+            if (otherdevices[fanValue] ~= 'Off') then
+                commandArray[fanValue] = 'Off'
+            end
         end
-    elseif (thermostaatValue < tonumber(temp)) then
-        motion({'M Woonkamer'}, {'S Woonkamerfan'})
+    elseif (thermostaatValue < temp) then
+        motion(motions, fans)
     else
-        if (otherdevices['S Woonkamerfan'] ~= 'Off') then
-            commandArray['S Woonkamerfan'] = 'Off'
+        for fanKey, fanValue in pairs(fans) do
+            if (otherdevices[fanValue] ~= 'Off') then
+                commandArray[fanValue] = 'Off'
+            end
         end
     end
+end
+
+-- WOONKAMER
+if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['TH Woonkamer'] ~= nil or devicechanged['TH Eetkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
+    woonkamerTemp, woonkamerHumidity, woonkamerVaag = otherdevices_svalues['TH Woonkamer']:match("([^;]+);([^;]+);([^;]+)")
+    eetkamerTemp, eetkamerHumidity, eetkamerVaag = otherdevices_svalues['TH Eetkamer']:match("([^;]+);([^;]+);([^;]+)")
+    temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})
+    setFan(temp, 'S Woonkamerfan', {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying())
 end
 
 
 -- SLAAPKAMER
 if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['TH Slaapkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil) then
-    temp, humidity, vaag = otherdevices_svalues['TH Slaapkamer']:match("([^;]+);([^;]+);([^;]+)")
-    if ((thermostaatValue + 5) < tonumber(temp)) then
-        if (otherdevices['S Slaapkamerfan'] == 'Off') then
-            commandArray['S Slaapkamerfan'] = 'On'
-        end
-    elseif (thermostaatValue < tonumber(temp)) then
-        motion({'M Slaapkamer'}, {'S Slaapkamerfan'})
-    else
-        if (otherdevices['S Slaapkamerfan'] ~= 'Off') then
-            commandArray['S Slaapkamerfan'] = 'Off'
-        end
-    end
+    slaapkamerTemp, slaapkamerHumidity, slaapkamerVaag = otherdevices_svalues['TH Slaapkamer']:match("([^;]+);([^;]+);([^;]+)")
+    temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})
+    setFan(temp, 'S Slaapkamerfan', {'M Slaapkamer'}, false)
 end
 
-
--- BADKAMER
---if (devicechanged['M Badkamer'] ~= nil or devicechanged['TH Badkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil) then
---    temp, humidity, vaag = otherdevices_svalues['TH Slaapkamer']:match("([^;]+);([^;]+);([^;]+)")
---    if ((thermostaatValue + 5) < tonumber(temp)) then
---        if (otherdevices['S Slaapkamerfan'] == 'Off') then
---            commandArray['S Slaapkamerfan'] = 'On'
---        end
---    elseif (thermostaatValue < tonumber(temp)) then
---        motion({'M Slaapkamer'}, {'S Slaapkamerfan'})
---    else
---        if (otherdevices['S Slaapkamerfan'] ~= 'Off') then
---            commandArray['S Slaapkamerfan'] = 'Off'
---        end
---    end
---end
 
 return commandArray
 
