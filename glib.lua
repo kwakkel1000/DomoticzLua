@@ -27,6 +27,7 @@ function glib.getAverage(values)
         tmpValue = tmpValue + value
     end
     tmpValue = tmpValue / amount
+    print('average value: '..toString(tmpValue))
     return tmpValue
 end
 
