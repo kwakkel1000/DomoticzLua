@@ -58,7 +58,7 @@ if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or
     woonkamerTemp, woonkamerHumidity, woonkamerVaag = otherdevices_svalues['TH Woonkamer']:match("([^;]+);([^;]+);([^;]+)")
     eetkamerTemp, eetkamerHumidity, eetkamerVaag = otherdevices_svalues['TH Eetkamer']:match("([^;]+);([^;]+);([^;]+)")
     temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})
-    setFan(temp, 'S Woonkamerfan', {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying())
+    setFan(temp, {'S Woonkamerfan'}, {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying())
 end
 
 
@@ -66,7 +66,7 @@ end
 if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['TH Slaapkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil) then
     slaapkamerTemp, slaapkamerHumidity, slaapkamerVaag = otherdevices_svalues['TH Slaapkamer']:match("([^;]+);([^;]+);([^;]+)")
     temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})
-    setFan(temp, 'S Slaapkamerfan', {'M Slaapkamer'}, false)
+    setFan(temp, {'S Slaapkamerfan'}, {'M Slaapkamer'}, false)
 end
 
 

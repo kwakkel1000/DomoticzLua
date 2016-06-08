@@ -38,7 +38,7 @@ function setDimLevel(Lux, Dimmer, WantedLux)
     luxUpdates = {}
     luxValues = {}
     for luxKey, luxValue in pairs(Lux) do
-        luxValues.insert(tonumber(otherdevices_svalues[luxValue]))
+        table.insert(luxValues, tonumber(otherdevices_svalues[luxValue]))
         table.insert(luxUpdates, glib.getTime(otherdevices_lastupdate[luxValue]))
     end
     MeasuredLux = glib.getAverage(luxValues)
