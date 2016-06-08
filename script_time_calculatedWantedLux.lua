@@ -2,27 +2,39 @@ commandArray = {}
 
 currentTime = os.date("*t")
 currentMinutes = currentTime.hour * 60 + currentTime.min
-tillSunset = timeofday['SunsetInMinutes'] - currentMinutes
-if (tillSunset < 0) then
-    tillSunset = tillSunset + 1440
+
+midDay = timeofday['SunriseInMinutes'] - timeofday['SunsetInMinutes']
+midNight = timeofday['SunsetInMinutes'] - timeofday['SunriseInMinutes']
+if (midDay < 0) then
+    midDay = midDay + 1440
 end
-tillSunrise = timeofday['SunriseInMinutes'] - currentMinutes
-if (tillSunrise < 0) then
-    tillSunrise = tillSunrise + 1440
+if (midNight < 0) then
+    midNight = midNight + 1440
 end
+
+tillMidDay = timeofday['SunriseInMinutes'] - currentMinutes
+tillMidNight = timeofday['SunsetInMinutes'] - currentMinutes
+if (tillMidDay < 0) then
+    tillMidDay = midDay + 1440
+end
+if (tillMidNight < 0) then
+    tillMidNight = midNight + 1440
+end
+
+
 luxDiff = uservariables['luxLevel1'] - uservariables['luxLevel2']
-if (tillSunset < tillSunrise) then
-    dayTimeMinutes = timeofday['SunriseInMinutes'] - timeofday['SunsetInMinutes']
+if (tillMidDay < tillMidDay) then
+    dayTimeMinutes = midDay - midNight
     if (dayTimeMinutes < 0) then
         dayTimeMinutes = dayTimeMinutes + 1440
     end
-    calculatedWantedLux = ((tillSunset / dayTimeMinutes) * luxDiff) + uservariables['luxLevel2'] 
+    calculatedWantedLux = ((tillMidDay / dayTimeMinutes) * luxDiff) + uservariables['luxLevel2'] 
 else
-    nightTimeMinutes = timeofday['SunsetInMinutes'] - timeofday['SunriseInMinutes']
+    nightTimeMinutes = midNight - midDay
     if (nightTimeMinutes < 0) then
         nightTimeMinutes = nightTimeMinutes + 1440
     end
-    calculatedWantedLux = ((tillSunrise / nightTimeMinutes) * luxDiff) + uservariables['luxLevel2'] 
+    calculatedWantedLux = ((tillMidDay / nightTimeMinutes) * luxDiff) + uservariables['luxLevel2'] 
 end
 calculatedWantedLux = math.floor(calculatedWantedLux + 0.5)
 if (calculatedWantedLux ~= uservariables['wantedLux']) then
