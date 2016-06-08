@@ -23,7 +23,7 @@ function glib.getAverage(values)
     amount = 0
     tmpValue = 0
     for key, value in pairs(values) do
-        tmpValue = tmpValue + 1
+        amount = amount + 1
         tmpValue = tmpValue + value
     end
     tmpValue = tmpValue / amount
