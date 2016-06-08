@@ -99,7 +99,6 @@ end
 
 -- WOONKAMER
 if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
-    print('film of woonkamer change')
     if (glib.moviePlaying()) then
         if (otherdevices['DS Woonkamer'] ~= 'Off') then
             commandArray['DS Woonkamer'] = 'Off'
@@ -120,7 +119,6 @@ end
 
 -- EETKAMER
 if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
-    print('film of eetkamer change')
     if (glib.moviePlaying()) then
         if (otherdevices['DS Eetkamer'] ~= 'Off') then
             commandArray['DS Eetkamer'] = 'Off'
@@ -138,7 +136,6 @@ end
 
 -- GANG
 if (devicechanged['M Gang'] ~= nil or devicechanged['L Gang'] ~= nil) then
---    print('gang change')
     if (not motionTurnOff({'M Gang'}, {'DS Gang'})) then
         setDimLevel({'L Gang'}, {'DS Gang'}, uservariables['wantedLux'])
     end
@@ -146,7 +143,6 @@ end
 
 -- OVERLOOP
 if (devicechanged['M Overloop'] ~= nil or devicechanged['L Overloop'] ~= nil) then
---    print('overloop change')
     if (not motionTurnOff({'M Overloop'}, {'DS Overloop'})) then
         setDimLevel({'L Overloop'}, {'DS Overloop'}, (uservariables['wantedLux'] / 2))
     end
@@ -154,7 +150,6 @@ end
 
 -- HOBBY
 if (devicechanged['M Hobby'] ~= nil or devicechanged['L Hobby'] ~= nil) then
---    print('hobby change')
     if (not motionTurnOff({'M Hobby'}, {'DS Hobby'})) then
         setDimLevel({'L Hobby'}, {'DS Hobby'}, uservariables['wantedLux'])
     end
@@ -162,7 +157,6 @@ end
 
 -- SLAAPKAMER
 if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['L Slaapkamer'] ~= nil) then
---    print('slaapkamer change')
     if (not motionTurnOff({'M Slaapkamer'}, {'DS Slaapkamer'})) then
         setDimLevel({'L Slaapkamer'}, {'DS Slaapkamer'}, uservariables['wantedLux'])
     end
@@ -171,7 +165,6 @@ end
 
 -- ACHTERTUIN
 if (timeofday['Nighttime']) then
-    print('its nighttime')
     setDimLevel({'L Eetkamer'}, {'DS Achtertuin'}, uservariables['wantedLux']) -- L Eetkamer should change
 else
     if (otherdevices['DS Achtertuin'] ~= 'Off') then
