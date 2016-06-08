@@ -122,10 +122,13 @@ if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil or 
         if (otherdevices['DS Eetkamer'] ~= 'Off') then
             commandArray['DS Eetkamer'] = 'Off'
         end
---        setDimLevel('L Eetkamer', 'DS Eetkamer', uservariables['luxLevel3'])
+        if (otherdevices['DS Bijkeuken'] ~= 'Off') then
+            commandArray['DS Bijkeuken'] = 'Off'
+        end
+--        setDimLevel({'L Eetkamer'}, {'DS Eetkamer', 'DS Bijkeuken'}, uservariables['wantedLux3'])
     else
-        if (not motionTurnOff({'M Eetkamer'}, {'DS Eetkamer'})) then
-            setDimLevel({'L Eetkamer'}, {'DS Eetkamer'}, uservariables['wantedLux'])
+        if (not motionTurnOff({'M Eetkamer'}, {'DS Eetkamer', 'DS Bijkeuken'})) then
+            setDimLevel({'L Eetkamer'}, {'DS Eetkamer', 'DS Bijkeuken'}, uservariables['wantedLux'])
         end
     end
 end
@@ -151,6 +154,25 @@ if (devicechanged['M Hobby'] ~= nil or devicechanged['L Hobby'] ~= nil) then
 --    print('hobby change')
     if (not motionTurnOff({'M Hobby'}, {'DS Hobby'})) then
         setDimLevel({'L Hobby'}, {'DS Hobby'}, uservariables['wantedLux'])
+    end
+end
+
+-- SLAAPKAMER
+if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['L Slaapkamer'] ~= nil) then
+--    print('slaapkamer change')
+    if (not motionTurnOff({'M Slaapkamer'}, {'DS Slaapkamer'})) then
+        setDimLevel({'L Slaapkamer'}, {'DS Slaapkamer'}, uservariables['wantedLux'])
+    end
+end
+
+
+-- ACHTERTUIN
+if (timeofday['Nighttime']) then
+    print('its nighttime')
+    setDimLevel({'L Eetkamer'}, {'DS Achtertuin'}, uservariables['wantedLux']) -- L Eetkamer should change
+else
+    if (otherdevices['DS Achtertuin'] ~= 'Off') then
+        commandArray['DS Achtertuin'] = 'Off'
     end
 end
 
