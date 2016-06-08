@@ -52,7 +52,11 @@ function setDimLevel(Lux, Dimmer, WantedLux)
             end
         end
         if (luxUpdated) then
-            WantedDimLevel = calculateWantedDim(MeasuredLux, WantedLux, tonumber(otherdevices_svalues[dimmerValue]))
+            prevDimmerLevel = tonumber(otherdevices_svalues[dimmerValue])
+            if (otherdevices[dimmerValue] ~= "Off" and prevDimmerLevel == 0) then
+                prevDimmerLevel = 100
+            end
+            WantedDimLevel = calculateWantedDim(MeasuredLux, WantedLux, prevDimmerLevel)
             if (WantedDimLevel ~= -1) then
                 print('Dimmer: '..dimmerValue..' WantedDimLevel '..tostring(WantedDimLevel))
                 if (WantedDimLevel < 10) then
