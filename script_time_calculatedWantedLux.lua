@@ -3,11 +3,11 @@ commandArray = {}
 currentTime = os.date("*t")
 currentMinutes = currentTime.hour * 60 + currentTime.min
 
-midDay = timeofday['SunriseInMinutes'] - timeofday['SunsetInMinutes']
+midDay = timeofday['SunsetInMinutes'] - timeofday['SunriseInMinutes']
 if (midDay < 0) then
     midDay = midDay + 1440
 end
-midNight = timeofday['SunsetInMinutes'] - timeofday['SunriseInMinutes']
+midNight = timeofday['SunriseInMinutes'] - timeofday['SunsetInMinutes']
 if (midNight < 0) then
     midNight = midNight + 1440
 end
