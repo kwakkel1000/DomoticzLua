@@ -1,5 +1,8 @@
 package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua' 
-glib = require('glib') 
+glib = require('glib')
+
+hotOffset = 10
+noMotionOffset = 5
 
 commandArray = {}
 
@@ -30,13 +33,13 @@ function motion(Motion, Fan)
 end
 
 function setFan(temp, fans, motions, movie)
-    if ((thermostaatValue + 5) < temp) then
+    if ((thermostaatValue + hotOffset) < temp) then
         for fanKey, fanValue in pairs(fans) do
             if (otherdevices[fanValue] == 'Off') then
                 commandArray[fanValue] = 'On'
             end
         end
-    elseif (movie and (thermostaatValue + 2) > temp) then
+    elseif (movie and (thermostaatValue + noMotionOffset) > temp) then
         for fanKey, fanValue in pairs(fans) do
             if (otherdevices[fanValue] ~= 'Off') then
                 commandArray[fanValue] = 'Off'
