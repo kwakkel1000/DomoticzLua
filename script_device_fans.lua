@@ -35,7 +35,6 @@ if (devicechanged['M Woonkamer'] ~= nil or devicechanged['TH Woonkamer'] ~= nil 
     if ((thermostaatValue + 5) < tonumber(temp)) then
         if (otherdevices['S Woonkamerfan'] == 'Off') then
             commandArray['S Woonkamerfan'] = 'On'
-            print('turn '..value..' on (HOT)')
         end
     elseif (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On" and (thermostaatValue + 2) > tonumber(temp)) then
         if (otherdevices['S Woonkamerfan'] ~= 'Off') then
@@ -57,7 +56,6 @@ if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['TH Slaapkamer'] ~= ni
     if ((thermostaatValue + 5) < tonumber(temp)) then
         if (otherdevices['S Slaapkamerfan'] == 'Off') then
             commandArray['S Slaapkamerfan'] = 'On'
-            print('turn '..value..' on (HOT)')
         end
     elseif (thermostaatValue < tonumber(temp)) then
         motion({'M Slaapkamer'}, {'S Slaapkamerfan'})
@@ -75,7 +73,6 @@ end
 --    if ((thermostaatValue + 5) < tonumber(temp)) then
 --        if (otherdevices['S Slaapkamerfan'] == 'Off') then
 --            commandArray['S Slaapkamerfan'] = 'On'
---            print('turn '..value..' on (HOT)')
 --        end
 --    elseif (thermostaatValue < tonumber(temp)) then
 --        motion({'M Slaapkamer'}, {'S Slaapkamerfan'})
