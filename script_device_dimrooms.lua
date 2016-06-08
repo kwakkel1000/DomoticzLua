@@ -37,7 +37,6 @@ function setDimLevel(Lux, Dimmer, WantedLux)
     MeasuredLux = 0
     luxUpdates = {}
     luxValues = 0
-    delay = 5
     for luxKey, luxValue in pairs(Lux) do
         luxValues = luxValues + 1
         table.insert(luxUpdates, glib.getTime(otherdevices_lastupdate[luxValue]))
@@ -45,7 +44,6 @@ function setDimLevel(Lux, Dimmer, WantedLux)
     end
     MeasuredLux = MeasuredLux / luxValues
     for dimmerKey, dimmerValue in pairs(Dimmer) do
-        delay = delay + 1
         dimmerUpdate = glib.getTime(otherdevices_lastupdate[dimmerValue])
         luxUpdated = false
         for luxKey, luxValue in pairs(luxUpdates) do
@@ -59,17 +57,17 @@ function setDimLevel(Lux, Dimmer, WantedLux)
                 print('Dimmer: '..dimmerValue..' WantedDimLevel '..tostring(WantedDimLevel))
                 if (WantedDimLevel < 10) then
                     if (otherdevices[dimmerValue] ~= "Off") then
-                        commandArray[dimmerValue] = 'Off AFTER '..delay
+                        commandArray[dimmerValue] = 'Off'
                         print('turn '..dimmerValue..' off')
                     end
                 else
-                    commandArray[dimmerValue] = 'Set Level '..tostring(WantedDimLevel)..' AFTER '..delay
+                    commandArray[dimmerValue] = 'Set Level '..tostring(WantedDimLevel)
                     print('set dim level for '..dimmerValue..' to '..tostring(WantedDimLevel))
                 end
             end
         else
             if (otherdevices[dimmerValue] == "Off" and MeasuredLux < WantedLux) then
-                commandArray[dimmerValue] = 'On AFTER '..delay
+                commandArray[dimmerValue] = 'On'
                 print('turn '..dimmerValue..' on')
             end
         end
@@ -78,7 +76,6 @@ end
 
 function motionTurnOff(Motion, Dimmer)
     motionDetected = false
-    delay = 5
     for key, value in pairs(Motion) do
         if (tonumber(otherdevices_svalues[value]) > 1) then
             motionDetected = true
@@ -90,7 +87,7 @@ function motionTurnOff(Motion, Dimmer)
         for key, value in pairs(Dimmer) do
             delay = delay + 1
             if (otherdevices[value] ~= 'Off') then
-                commandArray[value] = 'Off AFTER '..delay
+                commandArray[value] = 'Off'
                 print('turn '..value..' off (no motion)')
             end
         end
@@ -103,13 +100,13 @@ if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil o
     print('film of woonkamer change')
     if (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On") then
         if (otherdevices['DS Woonkamer'] ~= 'Off') then
-            commandArray['DS Woonkamer'] = 'Off AFTER 5'
+            commandArray['DS Woonkamer'] = 'Off'
         end
 --        if (otherdevices['DS Woonkamer2'] ~= 'Off') then
---            commandArray['DS Woonkamer2'] = 'Off AFTER 6'
+--            commandArray['DS Woonkamer2'] = 'Off'
 --        end
 --        if (otherdevices['DS Woonkamer3'] ~= 'Off') then
---            commandArray['DS Woonkamer3'] = 'Off AFTER 7'
+--            commandArray['DS Woonkamer3'] = 'Off'
 --        end
         setDimLevel({'L Woonkamer'}, {'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['luxLevel3'])
     else
@@ -124,10 +121,10 @@ if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil or 
     print('film of eetkamer change')
     if (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On") then
         if (otherdevices['DS Eetkamer'] ~= 'Off') then
-            commandArray['DS Eetkamer'] = 'Off AFTER 5'
+            commandArray['DS Eetkamer'] = 'Off'
         end
         if (otherdevices['DS Bijkeuken'] ~= 'Off') then
-            commandArray['DS Bijkeuken'] = 'Off AFTER 6'
+            commandArray['DS Bijkeuken'] = 'Off'
         end
 --        setDimLevel({'L Eetkamer'}, {'DS Eetkamer', 'DS Bijkeuken'}, uservariables['wantedLux3'])
     else
