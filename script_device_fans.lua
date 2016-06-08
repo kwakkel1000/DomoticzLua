@@ -3,6 +3,8 @@ glib = require('glib')
 
 commandArray = {}
 
+thermostaatValue = tonumber(otherdevices_svalues['Thermostaat'])
+
 function motion(Motion, Fan)
     motionDetected = false
     for key, value in pairs(Motion) do
@@ -26,8 +28,6 @@ function motion(Motion, Fan)
         end
     end
 end
-
-thermostaatValue = tonumber(otherdevices_svalues[Thermostaat])
 
 -- WOONKAMER
 if (devicechanged['M Woonkamer'] ~= nil or devicechanged['TH Woonkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
