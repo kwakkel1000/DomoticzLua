@@ -25,6 +25,7 @@ function glib.getAverage(values)
     for key, value in pairs(values) do
         amount = amount + 1
         tmpValue = tmpValue + value
+        print('value for averaging: '..tostring(value))
     end
     tmpValue = tmpValue / amount
     print('average value: '..tostring(tmpValue))
