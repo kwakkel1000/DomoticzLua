@@ -15,8 +15,8 @@ function calculateWantedDim(MeasuredLux, WantedLux, PrevDimmerLevel)
         if (WantedDimLevel > (uservariables['maxDimStep'] + PrevDimmerLevel)) then
             WantedDimLevel = PrevDimmerLevel + uservariables['maxDimStep']
         end
-        if (WantedDimLevel > 100) then
-            WantedDimLevel = 100
+        if (WantedDimLevel > 99) then
+            WantedDimLevel = 99
         end
         if (WantedDimLevel < (PrevDimmerLevel - uservariables['maxDimStep'])) then
             WantedDimLevel = PrevDimmerLevel - uservariables['maxDimStep']
