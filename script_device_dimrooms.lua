@@ -53,22 +53,16 @@ function setDimLevel(Lux, Dimmer, WantedLux)
         if (luxUpdated) then
             prevDimmerLevel = tonumber(otherdevices_svalues[dimmerValue])
             if (otherdevices[dimmerValue] ~= "Off" and prevDimmerLevel == 0) then
-                prevDimmerLevel = 100
+                prevDimmerLevel = 99
             end
             WantedDimLevel = calculateWantedDim(MeasuredLux, WantedLux, prevDimmerLevel)
             if (WantedDimLevel ~= -1) then
                 print('Dimmer: '..dimmerValue..' WantedDimLevel '..tostring(WantedDimLevel))
-                if (WantedDimLevel < 10) then
-                    glib.turnOff(dimmerValue)
-                else
-                    commandArray[dimmerValue] = 'Set Level '..tostring(WantedDimLevel)
-                    print('set dim level for '..dimmerValue..' to '..tostring(WantedDimLevel))
-                end
+                glib.turnOn(dimmerValue, WantedDimLevel)
             end
         else
-            if (otherdevices[dimmerValue] == "Off" and MeasuredLux < WantedLux) then
-                commandArray[dimmerValue] = 'On'
-                print('turn '..dimmerValue..' on')
+            if (MeasuredLux < WantedLux) then
+                glib.turnOn(dimmerValue)
             end
         end
     end

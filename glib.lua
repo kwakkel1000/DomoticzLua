@@ -53,4 +53,13 @@ function glib.turnOff(device)
     end
 end
 
+function glib.setLevel(device, level)
+    if (level < 10) then
+        glib.turnOff(device)
+    else
+        commandArray[device] = 'Set Level '..tostring(level)
+        print('set dim level for '..device..' to '..tostring(level))
+    end
+end
+
 return glib
