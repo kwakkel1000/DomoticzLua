@@ -85,7 +85,6 @@ function motionTurnOff(Motion, Dimmer)
         return false
     else
         for key, value in pairs(Dimmer) do
-            delay = delay + 1
             if (otherdevices[value] ~= 'Off') then
                 commandArray[value] = 'Off'
                 print('turn '..value..' off (no motion)')
