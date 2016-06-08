@@ -37,7 +37,7 @@ function setDimLevel(Lux, Dimmer, WantedLux)
     MeasuredLux = 0
     luxUpdates = {}
     luxValues = 0
-    dimmers = 0
+    delay = 5
     for luxKey, luxValue in pairs(Lux) do
         luxValues = luxValues + 1
         table.insert(luxUpdates, glib.getTime(otherdevices_lastupdate[luxValue]))
@@ -45,7 +45,7 @@ function setDimLevel(Lux, Dimmer, WantedLux)
     end
     MeasuredLux = MeasuredLux / luxValues
     for dimmerKey, dimmerValue in pairs(Dimmer) do
-        dimmers = dimmers + 1
+        delay = delay + 1
         dimmerUpdate = glib.getTime(otherdevices_lastupdate[dimmerValue])
         luxUpdated = false
         for luxKey, luxValue in pairs(luxUpdates) do
@@ -59,17 +59,17 @@ function setDimLevel(Lux, Dimmer, WantedLux)
                 print('Dimmer: '..dimmerValue..' WantedDimLevel '..tostring(WantedDimLevel))
                 if (WantedDimLevel < 10) then
                     if (otherdevices[dimmerValue] ~= "Off") then
-                        commandArray[dimmerValue] = 'Off AFTER '..dimmers
+                        commandArray[dimmerValue] = 'Off AFTER '..delay
                         print('turn '..dimmerValue..' off')
                     end
                 else
-                    commandArray[dimmerValue] = 'Set Level '..tostring(WantedDimLevel)..' AFTER '..dimmers
+                    commandArray[dimmerValue] = 'Set Level '..tostring(WantedDimLevel)..' AFTER '..delay
                     print('set dim level for '..dimmerValue..' to '..tostring(WantedDimLevel))
                 end
             end
         else
             if (otherdevices[dimmerValue] == "Off" and MeasuredLux < WantedLux) then
-                commandArray[dimmerValue] = 'On AFTER '..dimmers
+                commandArray[dimmerValue] = 'On AFTER '..delay
                 print('turn '..dimmerValue..' on')
             end
         end
@@ -78,7 +78,7 @@ end
 
 function motionTurnOff(Motion, Dimmer)
     motionDetected = false
-    dimmers = 0
+    delay = 5
     for key, value in pairs(Motion) do
         if (tonumber(otherdevices_svalues[value]) > 1) then
             motionDetected = true
@@ -88,9 +88,9 @@ function motionTurnOff(Motion, Dimmer)
         return false
     else
         for key, value in pairs(Dimmer) do
-            dimmers = dimmers + 1
+            delay = delay + 1
             if (otherdevices[value] ~= 'Off') then
-                commandArray[value] = 'Off AFTER '..dimmers
+                commandArray[value] = 'Off AFTER '..delay
                 print('turn '..value..' off (no motion)')
             end
         end
