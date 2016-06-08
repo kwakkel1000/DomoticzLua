@@ -45,7 +45,7 @@ function setFan(temp, fans, motions, movie)
                 commandArray[fanValue] = 'Off'
             end
         end
-    elseif (~glib.moviePlaying and thermostaatValue < temp) then
+    elseif (glib.moviePlaying ~= true and thermostaatValue < temp) then
         motion(motions, fans)
     else
         for fanKey, fanValue in pairs(fans) do
