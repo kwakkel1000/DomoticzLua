@@ -21,6 +21,7 @@ if (tillMidNight < 0) then
     tillMidNight = midNight + 1440
 end
 
+print('midDay/midNight: '..tostring(midDay)..'/'..tostring(midNight))
 print('till midDay/midNight: '..tostring(tillMidDay)..'/'..tostring(tillMidNight))
 
 luxDiff = uservariables['luxLevel1'] - uservariables['luxLevel2']
