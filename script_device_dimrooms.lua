@@ -69,7 +69,7 @@ function setDimLevel(Lux, Dimmer, WantedLux)
             end
         else
             if (otherdevices[dimmerValue] == "Off" and MeasuredLux < WantedLux) then
-                commandArray[dimmerValue] = 'On AFTER '..dimmers'
+                commandArray[dimmerValue] = 'On AFTER '..dimmers
                 print('turn '..dimmerValue..' on')
             end
         end
@@ -103,13 +103,13 @@ if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil o
     print('film of woonkamer change')
     if (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On") then
         if (otherdevices['DS Woonkamer'] ~= 'Off') then
-            commandArray['DS Woonkamer'] = 'Off'
+            commandArray['DS Woonkamer'] = 'Off AFTER 5'
         end
 --        if (otherdevices['DS Woonkamer2'] ~= 'Off') then
---            commandArray['DS Woonkamer2'] = 'Off'
+--            commandArray['DS Woonkamer2'] = 'Off AFTER 6'
 --        end
 --        if (otherdevices['DS Woonkamer3'] ~= 'Off') then
---            commandArray['DS Woonkamer3'] = 'Off'
+--            commandArray['DS Woonkamer3'] = 'Off AFTER 7'
 --        end
         setDimLevel({'L Woonkamer'}, {'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['luxLevel3'])
     else
@@ -124,10 +124,10 @@ if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil or 
     print('film of eetkamer change')
     if (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On") then
         if (otherdevices['DS Eetkamer'] ~= 'Off') then
-            commandArray['DS Eetkamer'] = 'Off'
+            commandArray['DS Eetkamer'] = 'Off AFTER 5'
         end
         if (otherdevices['DS Bijkeuken'] ~= 'Off') then
-            commandArray['DS Bijkeuken'] = 'Off'
+            commandArray['DS Bijkeuken'] = 'Off AFTER 6'
         end
 --        setDimLevel({'L Eetkamer'}, {'DS Eetkamer', 'DS Bijkeuken'}, uservariables['wantedLux3'])
     else
