@@ -21,7 +21,7 @@ function motion(Motion, Fan)
         end
     end
     if (motionDetected == true) then
-        for key, value in value(Fan) do
+        for key, value in pairs(Fan) do
             glib.turnOn(value)
         end
     else
