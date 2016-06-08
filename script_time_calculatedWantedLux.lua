@@ -4,19 +4,19 @@ currentTime = os.date("*t")
 currentMinutes = currentTime.hour * 60 + currentTime.min
 
 midDay = timeofday['SunriseInMinutes'] - timeofday['SunsetInMinutes']
-midNight = timeofday['SunsetInMinutes'] - timeofday['SunriseInMinutes']
 if (midDay < 0) then
     midDay = midDay + 1440
 end
+midNight = timeofday['SunsetInMinutes'] - timeofday['SunriseInMinutes']
 if (midNight < 0) then
     midNight = midNight + 1440
 end
 
-tillMidDay = timeofday['SunriseInMinutes'] - currentMinutes
-tillMidNight = timeofday['SunsetInMinutes'] - currentMinutes
+tillMidDay = midDay - currentMinutes
 if (tillMidDay < 0) then
     tillMidDay = midDay + 1440
 end
+tillMidNight = midNight - currentMinutes
 if (tillMidNight < 0) then
     tillMidNight = midNight + 1440
 end
