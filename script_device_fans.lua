@@ -89,7 +89,7 @@ else
 --        setFan(temp, {'S Badkamerfan'}, {'M Badkamer'}, false)
 --    end
     if (otherdevices['S Woonkamer Media'] ~= 'Off') then -- temporary
-        commandArray['S Woonkamer Media'] = 'Off' -- temporary
+--        commandArray['S Woonkamer Media'] = 'Off' -- temporary
     end -- temporary
 end
 
