@@ -15,8 +15,8 @@ function calculateWantedDim(MeasuredLux, WantedLux, PrevDimmerLevel)
         if (WantedDimLevel > (uservariables['maxDimStep'] + PrevDimmerLevel)) then
             WantedDimLevel = PrevDimmerLevel + uservariables['maxDimStep']
         end
-        if (WantedDimLevel > 99) then
-            WantedDimLevel = 99
+        if (WantedDimLevel > 100) then
+            WantedDimLevel = 100
         end
         if (WantedDimLevel < (PrevDimmerLevel - uservariables['maxDimStep'])) then
             WantedDimLevel = PrevDimmerLevel - uservariables['maxDimStep']
@@ -53,7 +53,7 @@ function setDimLevel(Lux, Dimmer, WantedLux)
         if (luxUpdated) then
             prevDimmerLevel = tonumber(otherdevices_svalues[dimmerValue])
             if (otherdevices[dimmerValue] ~= "Off" and prevDimmerLevel == 0) then
-                prevDimmerLevel = 99
+                prevDimmerLevel = 100
             end
             WantedDimLevel = calculateWantedDim(MeasuredLux, WantedLux, prevDimmerLevel)
             if (WantedDimLevel ~= -1) then
