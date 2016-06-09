@@ -69,7 +69,7 @@ function glib.timerOn(startHour, startMinute, endHour, endMinute, hour, minute, 
     minutes = hour * 60 + minute
     if (startMins <= minutes and endMins >= minutes) then
         for deviceKey, deviceValue in pairs(devices) do
-            glib.turnOn(fanValue)
+            glib.turnOn(deviceValue)
         end
         return true
     else
