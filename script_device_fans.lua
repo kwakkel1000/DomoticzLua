@@ -35,9 +35,9 @@ function setFan(temp, fans, motions, movie)
         for fanKey, fanValue in pairs(fans) do
             glib.turnOn(fanValue)
         end
-    elseif (glib.moviePlaying() and (thermostaatValue + movieOffset) > temp) then
+    elseif (glib.moviePlaying() and (thermostaatValue + movieOffset) < temp) then
         for fanKey, fanValue in pairs(fans) do
-            glib.turnOff(fanValue)
+            glib.turnOn(fanValue)
         end
     elseif ((not glib.moviePlaying()) and thermostaatValue < temp) then
         motion(motions, fans)
