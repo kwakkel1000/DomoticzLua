@@ -66,7 +66,7 @@ if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['TH Slaapkamer'] ~= ni
 end
 
 -- BADKAMER
-if (not glib.timerOn(6,30 , 9,30 , hour,minute ,{'S Badkamerfan'}) and not glib.timerOn(22,30 , 23,45 , hour,minute ,{'S Badkamerfan'})) then
+if (not glib.timerOn(6,30 , 9,30 , tonumber(hour),tonumber(minute) ,{'S Badkamerfan'}) and not glib.timerOn(22,30 , 23,45 , hour,minute ,{'S Badkamerfan'})) then
 --    if (devicechanged['M Badkamer'] ~= nil or devicechanged['TH Badkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil) then
 --        badkamerTemp, badkamerHumidity, badkamerVaag = otherdevices_svalues['TH Badkamer']:match("([^;]+);([^;]+);([^;]+)")
 --        temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})
