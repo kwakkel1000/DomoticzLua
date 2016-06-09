@@ -66,7 +66,7 @@ if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['TH Slaapkamer'] ~= ni
 end
 
 -- BADKAMER
-if ((hour == 6 and minute >= 30) or (hour == 9) or (hour == 8 and minute <= 59)) then
+if ((hour == 6 and minute > 30) or (hour == 8) or (hour == 9 and minute < 30)) then
     glib.turnOn('S Badkamerfan')
 else
 --    if (devicechanged['M Badkamer'] ~= nil or devicechanged['TH Badkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil) then
