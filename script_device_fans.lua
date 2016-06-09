@@ -7,7 +7,7 @@ movieOffset = 5
 
 currentTime = os.time()
 hour = string.sub(currentTime, 12, 13)
-minutes = string.sub(currentTime, 15, 16)
+minute = string.sub(currentTime, 15, 16)
 
 commandArray = {}
 
@@ -66,9 +66,7 @@ if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['TH Slaapkamer'] ~= ni
 end
 
 -- BADKAMER
-if ((hour == 6 and minute > 30) or (hour == 8) or (hour == 9 and minute < 30)) then
-    glib.turnOn('S Badkamerfan')
-else
+if (not glib.timerOn(6,30 , 9,30 , hour,minute ,{'S Badkamerfan'}) and not glib.timerOn(22,30 , 23,45 , hour,minute ,{'S Badkamerfan'})) then
 --    if (devicechanged['M Badkamer'] ~= nil or devicechanged['TH Badkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil) then
 --        badkamerTemp, badkamerHumidity, badkamerVaag = otherdevices_svalues['TH Badkamer']:match("([^;]+);([^;]+);([^;]+)")
 --        temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})

@@ -63,4 +63,18 @@ function glib.setLevel(device, level)
     end
 end
 
+function glib.timerOn(startHour, startMinute, endHour, endMinute, hour, minute, devices)
+    startMins = startHour * 60 + startMinute
+    endMins = endHour * 60 + endMinute
+    minutes = hour * 60 + minute
+    if (startMins <= minutes and endMins >= minutes) then
+        for deviceKey, deviceValue in pairs(devices) do
+            glib.turnOn(fanValue)
+        end
+        return true
+    else
+        return false
+    end
+end
+
 return glib
