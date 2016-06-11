@@ -3,6 +3,7 @@ glib = require('glib')
 
 hotOffset = 10
 movieOffset = 5
+normalOffset = 2
 
 
 currentHour = os.date("%H")
@@ -39,7 +40,7 @@ function setFan(temp, fans, motions, movie)
         for fanKey, fanValue in pairs(fans) do
             glib.turnOn(fanValue)
         end
-    elseif ((not glib.moviePlaying()) and thermostaatValue < temp) then
+    elseif ((not glib.moviePlaying()) and (thermostaatValue + normalOffset) < temp) then
         motion(motions, fans)
     else
         for fanKey, fanValue in pairs(fans) do
