@@ -40,6 +40,7 @@ end
 -- set volume
 if (devicechanged['Volume'] ~= nil) then
     if (otherdevices["Volume"] ~= "Off") then
+        onkyo_change('audio-muting:off')
         onkyo_change('volume:'..tonumber(otherdevices_svalues['Volume']))
     else
         onkyo_change('audio-muting:on')
