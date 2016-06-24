@@ -61,7 +61,7 @@ end
 -- SLAAPKAMER
 if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['TH Slaapkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil) then
     slaapkamerTemp, slaapkamerHumidity, slaapkamerVaag = otherdevices_svalues['TH Slaapkamer']:match("([^;]+);([^;]+);([^;]+)")
-    temp = glib.getAverage({tonumber(woonkamerTemp)})
+    temp = glib.getAverage({tonumber(slaapkamerTemp)})
     setFan(temp, {'S Slaapkamerfan'}, {'M Slaapkamer'}, false)
 end
 
