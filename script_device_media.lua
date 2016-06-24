@@ -3,7 +3,7 @@ glib = require('glib')
 
 commandArray = {}
 
-if (otherdevices["Film"] == "On" or otherdevices["Chromecast"] == "On") then
+if (otherdevices["Film"] == "On" or otherdevices["Chromecast"] == "On" or otherdevices["Game"] == "On") then
     glib.turnOn('S Woonkamer Media')
 else
     timeDiff = os.difftime (os.time(), glib.getTime(otherdevices_lastupdate["Chromecast"]))
