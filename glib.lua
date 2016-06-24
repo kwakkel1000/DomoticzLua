@@ -32,12 +32,20 @@ function glib.getAverage(values)
     return tmpValue
 end
 
-function glib.moviePlaying()
+function glib.moviePlaying(location)
     playing = false
     if (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On") then
         playing = true
     end
     return playing
+end
+
+function glib.gaming(location)
+    gaming = false
+    if (otherdevices["Game"] == "On") then
+        gaming = true
+    end
+    return gaming
 end
 
 function glib.turnOn(device)

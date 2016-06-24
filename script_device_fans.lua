@@ -36,11 +36,11 @@ function setFan(temp, fans, motions, movie)
         for fanKey, fanValue in pairs(fans) do
             glib.turnOn(fanValue)
         end
-    elseif (glib.moviePlaying() and (thermostaatValue + movieOffset) < temp) then
+    elseif (glib.moviePlaying('Woonkamer') and (thermostaatValue + movieOffset) < temp) then
         for fanKey, fanValue in pairs(fans) do
             glib.turnOn(fanValue)
         end
-    elseif ((not glib.moviePlaying()) and (thermostaatValue + normalOffset) < temp) then
+    elseif ((not glib.moviePlaying('Woonkamer')) and (thermostaatValue + normalOffset) < temp) then
         motion(motions, fans)
     else
         for fanKey, fanValue in pairs(fans) do
@@ -54,7 +54,7 @@ if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or
     woonkamerTemp, woonkamerHumidity, woonkamerVaag = otherdevices_svalues['TH Woonkamer']:match("([^;]+);([^;]+);([^;]+)")
     eetkamerTemp, eetkamerHumidity, eetkamerVaag = otherdevices_svalues['TH Eetkamer']:match("([^;]+);([^;]+);([^;]+)")
     temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})
-    setFan(temp, {'S Woonkamerfan'}, {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying())
+    setFan(temp, {'S Woonkamerfan'}, {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying('Woonkamer'))
 end
 
 
