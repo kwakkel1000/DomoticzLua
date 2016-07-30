@@ -37,7 +37,7 @@ function setFan(temp, fans, motions, movie)
         for fanKey, fanValue in pairs(fans) do
             glib.turnOff(fanValue)
         end
-    elseif (otherdevices_svalues['Air'] == "On") then
+    elseif (otherdevices['Air'] == "On") then
         for fanKey, fanValue in pairs(fans) do
             glib.turnOn(fanValue)
         end
@@ -81,7 +81,7 @@ end
 --        temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})
 --        setFan(temp, {'S Badkamerfan'}, {'M Badkamer'}, false)
         glib.turnOff('S Badkamerfan') -- temporary
-    elseif (otherdevices_svalues['Air'] == "On") then
+    elseif (otherdevices['Air'] == "On") then
         glib.turnOn('S Badkamerfan')
     end
 --end
