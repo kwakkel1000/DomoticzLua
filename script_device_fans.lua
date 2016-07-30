@@ -37,6 +37,10 @@ function setFan(temp, fans, motions, movie)
         for fanKey, fanValue in pairs(fans) do
             glib.turnOff(fanValue)
         end
+    elseif (otherdevices_svalues['Air'] == "On") then
+        for fanKey, fanValue in pairs(fans) do
+            glib.turnOn(fanValue)
+        end
     elseif ((thermostaatValue + hotOffset) < temp) then
         for fanKey, fanValue in pairs(fans) do
             glib.turnOn(fanValue)
@@ -55,7 +59,7 @@ function setFan(temp, fans, motions, movie)
 end
 
 -- WOONKAMER
-if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['TH Woonkamer'] ~= nil or devicechanged['TH Eetkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
+if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['TH Woonkamer'] ~= nil or devicechanged['TH Eetkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil or devicechanged['Air'] ~= nil) then
     woonkamerTemp, woonkamerHumidity, woonkamerVaag = otherdevices_svalues['TH Woonkamer']:match("([^;]+);([^;]+);([^;]+)")
     eetkamerTemp, eetkamerHumidity, eetkamerVaag = otherdevices_svalues['TH Eetkamer']:match("([^;]+);([^;]+);([^;]+)")
     temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})
@@ -64,21 +68,23 @@ end
 
 
 -- SLAAPKAMER
-if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['TH Slaapkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil) then
+if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['TH Slaapkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil or devicechanged['Air'] ~= nil) then
     slaapkamerTemp, slaapkamerHumidity, slaapkamerVaag = otherdevices_svalues['TH Slaapkamer']:match("([^;]+);([^;]+);([^;]+)")
     temp = glib.getAverage({tonumber(slaapkamerTemp)})
     setFan(temp, {'S Slaapkamerfan'}, {'M Slaapkamer'}, false)
 end
 
 -- BADKAMER
-if (not (glib.timerOn(6,30 , 9,30 , currentHour,currentMinute ,{'S Badkamerfan'}) or glib.timerOn(22,30 , 23,59 , currentHour,currentMinute ,{'S Badkamerfan'}))) then
---    if (devicechanged['M Badkamer'] ~= nil or devicechanged['TH Badkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil) then
+--if (devicechanged['M Badkamer'] ~= nil or devicechanged['TH Badkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil or devicechanged['Air'] ~= nil) then
+    if (not (glib.timerOn(6,30 , 9,30 , currentHour,currentMinute ,{'S Badkamerfan'}) or glib.timerOn(22,30 , 23,59 , currentHour,currentMinute ,{'S Badkamerfan'}))) then
 --        badkamerTemp, badkamerHumidity, badkamerVaag = otherdevices_svalues['TH Badkamer']:match("([^;]+);([^;]+);([^;]+)")
 --        temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})
 --        setFan(temp, {'S Badkamerfan'}, {'M Badkamer'}, false)
---    end
-    glib.turnOff('S Badkamerfan') -- temporary
-end
+        glib.turnOff('S Badkamerfan') -- temporary
+    elseif (otherdevices_svalues['Air'] == "On") then
+        glib.turnOn('S Badkamerfan')
+    end
+--end
 
 return commandArray
 
