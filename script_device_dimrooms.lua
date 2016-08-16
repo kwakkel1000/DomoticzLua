@@ -140,6 +140,13 @@ if (devicechanged['M Slaapkamer'] ~= nil or devicechanged['L Slaapkamer'] ~= nil
     end
 end
 
+-- WC
+if (devicechanged['M WC'] ~= nil or devicechanged['L WC'] ~= nil) then
+    if (not motionTurnOff({'M WC'}, {'DS WC'})) then
+        setDimLevel({'L WC'}, {'DS WC'}, uservariables['wantedLux'])
+    end
+end
+
 
 -- ACHTERTUIN
 if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer']) then

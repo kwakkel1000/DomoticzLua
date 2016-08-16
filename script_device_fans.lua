@@ -78,7 +78,7 @@ end
 --if (devicechanged['M Badkamer'] ~= nil or devicechanged['TH Badkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil or devicechanged['Air'] ~= nil) then
     if (otherdevices['Air'] == "On") then
         glib.turnOn('S Badkamerfan')
-    elseif (not (glib.timerOn(6,30 , 9,30 , currentHour,currentMinute ,{'S Badkamerfan'}) or glib.timerOn(22,30 , 23,59 , currentHour,currentMinute ,{'S Badkamerfan'}))) then
+    elseif (not (glib.timerOn(6,30 , 9,30 , currentHour,currentMinute ,{'S Badkamerfan'}) or glib.timerOn(13,30 , 15,30 , currentHour,currentMinute ,{'S Badkamerfan'}) or glib.timerOn(23,00 , 23:59 , currentHour,currentMinute ,{'S Badkamerfan'}))) then
 --        badkamerTemp, badkamerHumidity, badkamerVaag = otherdevices_svalues['TH Badkamer']:match("([^;]+);([^;]+);([^;]+)")
 --        temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})
 --        setFan(temp, {'S Badkamerfan'}, {'M Badkamer'}, false)
