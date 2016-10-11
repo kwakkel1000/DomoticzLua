@@ -1,9 +1,9 @@
 package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua' 
 glib = require('glib')
 
-awayTemp = 15
-bedroomTemp = 18
-normalTemp = 20
+awayTemp = "15.0"
+bedroomTemp = "18.0"
+normalTemp = "20.0"
 
 currentHour = os.date("%H")
 currentMinute = os.date("%M")
@@ -21,11 +21,13 @@ function setThermostat(temp, thermostats, motions, movie)
     end
     if (motionDetected == true or otherdevices["Film"] == "On" or otherdevices["Chromecast"] == "On" or otherdevices["Game"] == "On") then
         for key, value in pairs(thermostats) do
-            glib.setLevel(value, temp)
+            commandArray[value] = 'Set Level '..temp
+            print('set temperature for '..value..' to '..temp)
         end
     else
         for key, value in pairs(thermostats) do
-            glib.setLevel(value, awayTemp)
+            commandArray[value] = 'Set Level '..temp
+            print('set temperature for '..value..' to '..temp)
         end
     end
 end
