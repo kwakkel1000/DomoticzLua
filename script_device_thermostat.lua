@@ -13,33 +13,23 @@ commandArray = {}
 thermostaatValue = tonumber(otherdevices_svalues['Thermostaat'])
 
 function motion(Motion, Thermostat, Temp)
+
+end
+
+function setThermostat(temp, thermostats, motions, movie)
     motionDetected = false
-    for key, value in pairs(Motion) do
+    for key, value in pairs(motions) do
         if (tonumber(otherdevices_svalues[value]) > 1) then
             motionDetected = true
         end
     end
-    if (motionDetected == true) then
-        for key, value in pairs(Thermostat) do
+    if (motionDetected == true or otherdevices["Film"] == "On" or otherdevices["Chromecast"] == "On" or otherdevices["Game"] == "On") then
+        for key, value in pairs(thermostats) do
             glib.setLevel(value, Temp)
         end
     else
-        for key, value in pairs(Thermostat) do
+        for key, value in pairs(thermostats) do
             glib.setLevel(value, awayTemp)
-        end
-    end
-end
-
-function setThermostat(temp, thermostats, motions, movie)
-    if (glib.moviePlaying('Woonkamer')) then
-        for thermostatKey, thermostatValue in pairs(thermostats) do
-            glib.setLevel(thermostatValue, temp)
-        end
-    elseif (not glib.moviePlaying('Woonkamer')) then
-        motion(motions, thermostats)
-    else
-        for thermostatKey, thermostatValue in pairs(thermostats) do
-            glib.setLevel(thermostatValue, awayTemp)
         end
     end
 end
