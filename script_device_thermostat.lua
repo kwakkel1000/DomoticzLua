@@ -27,7 +27,7 @@ function setThermostat(temp, thermostats, motions, movie)
     else
         for key, value in pairs(thermostats) do
             commandArray[value] = 'Set Level '..temp
-            print('set temperature for '..value..' to '..temp)
+            print('set temperature for '..value..' to '..awayTemp)
         end
     end
 end
