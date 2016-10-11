@@ -33,7 +33,7 @@ end
 function setThermostat(temp, thermostats, motions, movie)
     if (glib.moviePlaying('Woonkamer')) then
         for thermostatKey, thermostatValue in pairs(thermostats) do
-            glib.turnOn(thermostatValue)
+            glib.setLevel(thermostatValue, temp)
         end
     elseif (not glib.moviePlaying('Woonkamer')) then
         motion(motions, thermostats)
