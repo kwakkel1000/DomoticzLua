@@ -4,9 +4,18 @@ glib = require('glib')
 awayTemp = "15.0"
 bedroomTemp = "18.0"
 normalTemp = "20.0"
+wakeupStartHour = 7
+wakeupStartMinute = 30
+wakeupEndHour = 8
+wakeupEndMinute = 30
 
 currentHour = os.date("%H")
 currentMinute = os.date("%M")
+
+wakeupStart = wakeupStartHour * 60 + wakeupStartMinute
+wakeupEnd = wakeupEndHour * 60 + wakeupEndMinute
+minutes = currentHour * 60 + currentMinute
+
 
 commandArray = {}
 
@@ -24,6 +33,9 @@ function setThermostat(temp, thermostats, motions, movie)
             commandArray[value] = 'Set Level '..temp
             print('set temperature for '..value..' to '..temp)
         end
+    elseif (wakeupStart <= minutes and wakeupEnd >= minutes) then
+            commandArray[value] = 'Set Level '..temp
+            print('set temperature for '..value..' to '..temp..' warm house when waking up')
     else
         for key, value in pairs(thermostats) do
             commandArray[value] = 'Set Level '..temp
