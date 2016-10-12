@@ -9,6 +9,8 @@ wakeupStartMinute = 30
 wakeupEndHour = 8
 wakeupEndMinute = 30
 
+thermostaatIdx = 205
+
 currentHour = os.date("%H")
 currentMinute = os.date("%M")
 
@@ -30,15 +32,18 @@ function setThermostat(temp, thermostats, motions, movie)
     end
     if (motionDetected == true or otherdevices["Film"] == "On" or otherdevices["Chromecast"] == "On" or otherdevices["Game"] == "On") then
         for key, value in pairs(thermostats) do
-            commandArray[value] = temp
+            set = tostring(thermostaatIdx) .. "|0|" .. temp
+            commandArray[value] = set
             print('set temperature for '..value..' to '..temp)
         end
     elseif (wakeupStart <= minutes and wakeupEnd >= minutes) then
-            commandArray[value] = temp
+            set = tostring(thermostaatIdx) .. "|0|" .. temp
+            commandArray[value] = set
             print('set temperature for '..value..' to '..temp..' warm house when waking up')
     else
         for key, value in pairs(thermostats) do
-            commandArray[value] = awayTemp
+            set = tostring(thermostaatIdx) .. "|0|" .. awayTemp
+            commandArray[value] = set
             print('set temperature for '..value..' to '..awayTemp)
         end
     end
