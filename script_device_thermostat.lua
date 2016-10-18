@@ -10,6 +10,7 @@ wakeupEndHour = 8
 wakeupEndMinute = 30
 
 thermostaatIdx = 205
+thermostaatName = 'Thermostaat'
 
 currentHour = os.date("%H")
 currentMinute = os.date("%M")
@@ -21,9 +22,9 @@ minutes = currentHour * 60 + currentMinute
 
 commandArray = {}
 
-thermostaatValue = tonumber(otherdevices_svalues['Thermostaat'])
+thermostaatValue = tonumber(otherdevices_svalues[thermostaatName])
 
-function setThermostat(temp, thermostats, motions, movie)
+function setThermostat(temp, thermostat, motions, movie)
     motionDetected = false
     for key, value in pairs(motions) do
         if (tonumber(otherdevices_svalues[value]) > 1) then
@@ -31,32 +32,31 @@ function setThermostat(temp, thermostats, motions, movie)
         end
     end
     if (motionDetected == true or otherdevices["Film"] == "On" or otherdevices["Chromecast"] == "On" or otherdevices["Game"] == "On") then
-        for key, value in pairs(thermostats) do
+        if (thermostaatValue ~= temp) then
             set = tostring(thermostaatIdx) .. "|0|" .. temp
-            commandArray[value] = set
-            print('set temperature for '..value..' to '..temp)
+            commandArray['UpdateDevice'] = set
         end
     elseif (wakeupStart <= minutes and wakeupEnd >= minutes) then
+        if (thermostaatValue ~= temp) then
             set = tostring(thermostaatIdx) .. "|0|" .. temp
-            commandArray[value] = set
-            print('set temperature for '..value..' to '..temp..' warm house when waking up')
+            commandArray['UpdateDevice'] = set
+        end
     else
-        for key, value in pairs(thermostats) do
+        if (thermostaatValue ~= awayTemp) then
             set = tostring(thermostaatIdx) .. "|0|" .. awayTemp
-            commandArray[value] = set
-            print('set temperature for '..value..' to '..awayTemp)
+            commandArray['UpdateDevice'] = set
         end
     end
 end
 
 -- BENEDEN
 if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
-    setThermostat(normalTemp, {'Thermostat'}, {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying('Woonkamer'))
+    setThermostat(normalTemp, thermostaatIdx, {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying('Woonkamer'))
 end
 
 -- BOVEN
 -- if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
---     setThermostat(normalTemp, {'Thermostat'}, {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying('Woonkamer'))
+--     setThermostat(normalTemp, thermostaatIdx, {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying('Woonkamer'))
 -- end
 
 return commandArray
