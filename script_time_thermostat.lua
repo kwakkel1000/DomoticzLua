@@ -35,16 +35,19 @@ function setThermostat(temp, thermostat, motions, movie)
         if (thermostaatValue ~= temp) then
             set = tostring(thermostaatIdx) .. "|0|" .. temp
             commandArray['UpdateDevice'] = set
+            print('set temp for '..thermostaatName..' to '..tostring(temp))
         end
     elseif (wakeupStart <= minutes and wakeupEnd >= minutes) then
         if (thermostaatValue ~= temp) then
             set = tostring(thermostaatIdx) .. "|0|" .. temp
             commandArray['UpdateDevice'] = set
+            print('waking up, set temp for '..thermostaatName..' to '..tostring(temp))
         end
     else
         if (thermostaatValue ~= awayTemp) then
             set = tostring(thermostaatIdx) .. "|0|" .. awayTemp
             commandArray['UpdateDevice'] = set
+            print('away, set temp for '..thermostaatName..' to '..tostring(awayTemp))
         end
     end
 end
