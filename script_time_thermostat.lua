@@ -50,9 +50,12 @@ function setThermostat(temp, thermostat, motions, movie)
 end
 
 -- BENEDEN
-if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
-    setThermostat(normalTemp, thermostaatIdx, {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying('Woonkamer'))
-end
+-- if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
+    timeDiff = os.difftime (os.time(), glib.getTime(otherdevices_lastupdate[thermostaatName]))
+    if (timeDiff > 1800 ) then -- only change thermostat if it hasn't changed for 30minutes
+        setThermostat(normalTemp, thermostaatIdx, {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying('Woonkamer'))
+    end
+-- end
 
 -- BOVEN
 -- if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
