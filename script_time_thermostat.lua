@@ -22,7 +22,7 @@ minutes = currentHour * 60 + currentMinute
 
 commandArray = {}
 
-thermostaatValue = tonumber(otherdevices_svalues[thermostaatName])
+thermostaatValue = otherdevices_svalues[thermostaatName]
 
 function setThermostat(temp, thermostat, motions, movie)
     motionDetected = false
