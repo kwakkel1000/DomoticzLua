@@ -14,7 +14,6 @@ thermostaatName = 'Thermostaat'
 
 currentHour = os.date("%H")
 currentMinute = os.date("%M")
-
 wakeupStart = wakeupStartHour * 60 + wakeupStartMinute
 wakeupEnd = wakeupEndHour * 60 + wakeupEndMinute
 minutes = currentHour * 60 + currentMinute
@@ -22,47 +21,30 @@ minutes = currentHour * 60 + currentMinute
 
 commandArray = {}
 
-thermostaatValue = otherdevices_svalues[thermostaatName]
-
-function setThermostat(temp, thermostat, motions, movie)
+timeDiff = os.difftime (os.time(), glib.getTime(otherdevices_lastupdate[thermostaatName]))
+if (timeDiff > 1800 ) then -- only change thermostat if it hasn't changed for 30minutes
     motionDetected = false
-    for key, value in pairs(motions) do
+    for key, value in pairs({'M Woonkamer', 'M Eetkamer'}) do
         if (tonumber(otherdevices_svalues[value]) > 1) then
             motionDetected = true
         end
     end
     if (motionDetected == true or otherdevices["Film"] == "On" or otherdevices["Chromecast"] == "On" or otherdevices["Game"] == "On") then
-        if (thermostaatValue ~= temp) then
-            set = tostring(thermostaatIdx) .. "|0|" .. temp
-            commandArray['UpdateDevice'] = set
-            print('set temp for '..thermostaatName..' to '..tostring(temp))
-        end
+        temp = normalTemp
+        print('set temp for '..thermostaatName..' to '..tostring(temp))
     elseif (wakeupStart <= minutes and wakeupEnd >= minutes) then
-        if (thermostaatValue ~= temp) then
-            set = tostring(thermostaatIdx) .. "|0|" .. temp
-            commandArray['UpdateDevice'] = set
-            print('waking up, set temp for '..thermostaatName..' to '..tostring(temp))
-        end
+        temp = normalTemp
+        print('waking up, set temp for '..thermostaatName..' to '..tostring(temp))
     else
-        if (thermostaatValue ~= awayTemp) then
-            set = tostring(thermostaatIdx) .. "|0|" .. awayTemp
-            commandArray['UpdateDevice'] = set
-            print('away, set temp for '..thermostaatName..' to '..tostring(awayTemp))
-        end
+        temp = awayTemp
+        print('away, set temp for '..thermostaatName..' to '..tostring(temp))
+    end
+    thermostaatValue = otherdevices_svalues[thermostaatName]
+    if (thermostaatValue ~= temp) then
+        set = tostring(thermostaatIdx) .. "|0|" .. temp
+        commandArray['UpdateDevice'] = set
+        print 'actually setting the temperature'
     end
 end
-
--- BENEDEN
--- if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
-    timeDiff = os.difftime (os.time(), glib.getTime(otherdevices_lastupdate[thermostaatName]))
-    if (timeDiff > 1800 ) then -- only change thermostat if it hasn't changed for 30minutes
-        setThermostat(normalTemp, thermostaatIdx, {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying('Woonkamer'))
-    end
--- end
-
--- BOVEN
--- if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil) then
---     setThermostat(normalTemp, thermostaatIdx, {'M Woonkamer', 'M Eetkamer'}, glib.moviePlaying('Woonkamer'))
--- end
 
 return commandArray
