@@ -4,6 +4,7 @@ glib = require('glib')
 awayTemp = "15.00"
 bedroomTemp = "18.00"
 normalTemp = "20.00"
+tvTemp = "21.00"
 wakeupStartHour = 7
 wakeupStartMinute = 30
 wakeupEndHour = 8
@@ -29,7 +30,10 @@ if (timeDiff > 1800 ) then -- only change thermostat if it hasn't changed for 30
             motionDetected = true
         end
     end
-    if (motionDetected == true or otherdevices["Film"] == "On" or otherdevices["Chromecast"] == "On" or otherdevices["Game"] == "On") then
+    if (otherdevices["Film"] == "On" or otherdevices["Chromecast"] == "On" or otherdevices["Game"] == "On") then
+        temp = tvTemp
+        print('tv, set temp for '..thermostaatName..' to '..tostring(temp))
+    elseif (motionDetected == true) then
         temp = normalTemp
         print('set temp for '..thermostaatName..' to '..tostring(temp))
     elseif (wakeupStart <= minutes and wakeupEnd >= minutes) then
