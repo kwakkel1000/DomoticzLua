@@ -61,7 +61,7 @@ end
 
 if (otherdevices['Hold'] == "Off") then
     -- WOONKAMER
-    if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['TH Woonkamer'] ~= nil or devicechanged['TH Eetkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil or devicechanged['Air'] ~= nil) then
+    if (devicechanged['M Woonkamer'] ~= nil or devicechanged['M Eetkamer'] ~= nil or devicechanged['TH Woonkamer'] ~= nil or devicechanged['TH Eetkamer'] ~= nil or devicechanged['Thermostaat'] ~= nil or devicechanged['Media Woonkamer'] ~= nil or devicechanged['Chromecast'] ~= nil or devicechanged['Air'] ~= nil) then
         woonkamerTemp, woonkamerHumidity, woonkamerVaag = otherdevices_svalues['TH Woonkamer']:match("([^;]+);([^;]+);([^;]+)")
         eetkamerTemp, eetkamerHumidity, eetkamerVaag = otherdevices_svalues['TH Eetkamer']:match("([^;]+);([^;]+);([^;]+)")
         temp = glib.getAverage({tonumber(woonkamerTemp), tonumber(eetkamerTemp)})

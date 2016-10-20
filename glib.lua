@@ -34,7 +34,7 @@ end
 
 function glib.moviePlaying(location)
     playing = false
-    if (otherdevices["Film"] == "On" and otherdevices["Chromecast"] == "On") then
+    if (otherdevices["Media Woonkamer"] == "Film" and otherdevices["Chromecast"] == "On") then
         playing = true
     end
     return playing
@@ -42,7 +42,7 @@ end
 
 function glib.gaming(location)
     gaming = false
-    if (otherdevices["Game"] == "On") then
+    if (otherdevices["Media Woonkamer"] == "PC" or otherdevices["Media Woonkamer"] == "PS3") then
         gaming = true
     end
     return gaming

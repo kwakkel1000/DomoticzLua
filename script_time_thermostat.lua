@@ -32,7 +32,7 @@ if (otherdevices['Hold'] == "Off") then
                 motionDetected = true
             end
         end
-        if (otherdevices["Film"] == "On" or otherdevices["Chromecast"] == "On" or otherdevices["Game"] == "On") then
+        if (otherdevices["Media Woonkamer"] ~= "Off" or otherdevices["Chromecast"] == "On") then
             temp = tvTemp
             print('tv, set temp for '..thermostaatName..' to '..tostring(temp))
         elseif (motionDetected == true) then

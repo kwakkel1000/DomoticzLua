@@ -86,7 +86,7 @@ function motionTurnOff(Motion, Dimmer)
 end
 
 -- WOONKAMER
-if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil or devicechanged['Game'] ~= nil) then
+if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil or devicechanged['Media Woonkamer'] ~= nil or devicechanged['Chromecast'] ~= nil) then
     if (glib.moviePlaying('Woonkamer') or glib.gaming('Woonkamer')) then
         glib.turnOff('DS Woonkamer')
 --        glib.turnOff('DS Woonkamer2')
@@ -100,7 +100,7 @@ if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil o
 end
 
 -- EETKAMER
-if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil or devicechanged['Film'] ~= nil or devicechanged['Chromecast'] ~= nil or devicechanged['Game'] ~= nil) then
+if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer'] ~= nil or devicechanged['Media Woonkamer'] ~= nil or devicechanged['Chromecast'] ~= nil) then
     if (glib.moviePlaying('Woonkamer')) then
         glib.turnOff('DS Eetkamer')
         glib.turnOff('DS Bijkeuken')
