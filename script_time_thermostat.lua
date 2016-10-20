@@ -18,7 +18,7 @@ currentHour = os.date("%H")
 currentMinute = os.date("%M")
 wakeupStart = wakeupStartHour * 60 + wakeupStartMinute
 wakeupEnd = wakeupEndHour * 60 + wakeupEndMinute
-minutes = currentHour * 60 + currentMinute
+currentMinutes = currentHour * 60 + currentMinute
 
 
 commandArray = {}
@@ -38,7 +38,7 @@ if (otherdevices['Hold'] == "Off") then
         elseif (motionDetected == true) then
             temp = normalTemp
             print('set temp for '..thermostaatName..' to '..tostring(temp))
-        elseif (wakeupStart <= minutes and wakeupEnd >= minutes) then
+        elseif (wakeupStart <= currentMinutes and wakeupEnd >= currentMinutes) then
             temp = wakeupTemp
             print('waking up, set temp for '..thermostaatName..' to '..tostring(temp))
         else
