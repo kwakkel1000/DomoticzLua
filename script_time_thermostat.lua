@@ -32,24 +32,25 @@ if (otherdevices['Hold'] == "Off") then
                 motionDetected = true
             end
         end
+        reason = ""
         if (otherdevices["Media Woonkamer"] ~= "Off" or otherdevices["Chromecast"] == "On") then
             temp = tvTemp
-            print('tv, set temp for '..thermostaatName..' to '..tostring(temp))
+            reason = 'tv, set temp for '..thermostaatName..' to '..tostring(temp)
         elseif (motionDetected == true) then
             temp = normalTemp
-            print('set temp for '..thermostaatName..' to '..tostring(temp))
+            reason = 'set temp for '..thermostaatName..' to '..tostring(temp)
         elseif (wakeupStart <= currentMinutes and wakeupEnd >= currentMinutes) then
             temp = wakeupTemp
-            print('waking up, set temp for '..thermostaatName..' to '..tostring(temp))
+            reason = 'waking up, set temp for '..thermostaatName..' to '..tostring(temp)
         else
             temp = awayTemp
-            print('away, set temp for '..thermostaatName..' to '..tostring(temp))
+            reason = 'away, set temp for '..thermostaatName..' to '..tostring(temp)
         end
         thermostaatValue = otherdevices_svalues[thermostaatName]
         if (thermostaatValue ~= temp) then
             set = tostring(thermostaatIdx) .. "|0|" .. temp
             commandArray['UpdateDevice'] = set
-            print 'actually setting the temperature'
+            print reason
         end
     end
 end
