@@ -25,7 +25,7 @@ commandArray = {}
 
 if (otherdevices['Hold'] == "Off") then
     timeDiff = os.difftime (os.time(), glib.getTime(otherdevices_lastupdate[thermostaatName]))
-    if (timeDiff > 1200) then -- only change thermostat if it hasn't changed for 20minutes
+    if (timeDiff > 1800) then -- only change thermostat if it hasn't changed for 30 minutes
         motionDetected = false
         for key, value in pairs({'M Woonkamer', 'M Eetkamer'}) do
             if (tonumber(otherdevices_svalues[value]) > 1) then
@@ -50,7 +50,7 @@ if (otherdevices['Hold'] == "Off") then
         if (thermostaatValue ~= temp) then
             set = tostring(thermostaatIdx) .. "|0|" .. temp
             commandArray['UpdateDevice'] = set
-            print reason
+            print(reason)
         end
     end
 end
