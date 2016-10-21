@@ -1,7 +1,7 @@
 package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua' 
 glib = require('glib')
 
-awayTemp = "15.00"
+awayTemp = "17.00"
 bedroomTemp = "18.00"
 wakeupTemp = "19.00"
 normalTemp = "20.00"
