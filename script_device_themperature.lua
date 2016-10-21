@@ -1,7 +1,7 @@
 package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua' 
 glib = require('glib')
 
-#thermostat
+-- thermostat
 offTemp = otherdevices_svalues['off temp']
 awayTemp = otherdevices_svalues['away temp']
 sleepTemp = otherdevices_svalues['sleep temp']
@@ -11,7 +11,7 @@ comfortTemp = otherdevices_svalues['comfort temp']
 
 thermostaatName = 'Thermostaat'
 
-#room values
+-- room values
 -- bedroomTemp = otherdevices_svalues['bedroom temp']
 
 commandArray = {}
