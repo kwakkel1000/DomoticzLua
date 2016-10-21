@@ -1,6 +1,8 @@
 package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua' 
 glib = require('glib')
 
+sleepStartHour = 23
+sleepStartMinute = 0
 wakeupStartHour = 7
 wakeupStartMinute = 30
 wakeupEndHour = 8
@@ -8,9 +10,12 @@ wakeupEndMinute = 30
 
 currentHour = os.date("%H")
 currentMinute = os.date("%M")
+currentMinutes = currentHour * 60 + currentMinute
+
+sleepStart = sleepStartHour * 60 + sleepStartMinute
+
 wakeupStart = wakeupStartHour * 60 + wakeupStartMinute
 wakeupEnd = wakeupEndHour * 60 + wakeupEndMinute
-currentMinutes = currentHour * 60 + currentMinute
 
 -- Name of the selector for living mode
 ModeSelector = 'Mode'
@@ -51,6 +56,11 @@ if (otherdevices['Hold'] == "Off") then
             if (otherdevices[ModeSelector] ~= HomeLevel) then
                 print("Updating '" .. ModeSelector .. "' selector to '" .. HomeLevel .. "'")
                 commandArray['UpdateDevice'] = otherdevices_idx[ModeSelector]..'|1|'..HomeLevelValue
+            end
+        elseif (sleepStart <= currentMinutes and wakeupStart >= currentMinutes) then
+            if (otherdevices[ModeSelector] ~= SleepLevel) then
+                print("Updating '" .. ModeSelector .. "' selector to '" .. SleepLevel .. "'")
+                commandArray['UpdateDevice'] = otherdevices_idx[ModeSelector]..'|1|'..SleepLevelValue
             end
         elseif (wakeupStart <= currentMinutes and wakeupEnd >= currentMinutes) then
             if (otherdevices[ModeSelector] ~= WakeupLevel) then
