@@ -17,6 +17,7 @@ thermostaatName = 'Thermostaat'
 commandArray = {}
 
 if (devicechanged['Mode'] ~= nil) then
+    temp = ''
     if (otherdevices["Mode"] == "Away") then
         temp = awayTemp
     elseif (otherdevices["Mode"] == "Sleep") then
