@@ -14,21 +14,24 @@ thermostaatName = 'Thermostaat'
 -- room values
 -- bedroomTemp = otherdevices_svalues['bedroom temp']
 
+-- Name of the selector for living mode
+ModeSelector = 'Mode'
+
 commandArray = {}
 
--- if (devicechanged['Mode'] ~= nil) then
+-- if (devicechanged[ModeSelector] ~= nil) then
     temp = ''
-    if (otherdevices["Mode"] == "Away") then
+    if (otherdevices[ModeSelector] == "Away") then
         temp = awayTemp
-    elseif (otherdevices["Mode"] == "Sleep") then
+    elseif (otherdevices[ModeSelector] == "Sleep") then
         temp = sleepTemp
-    elseif (otherdevices["Mode"] == "Wakeup") then
+    elseif (otherdevices[ModeSelector] == "Wakeup") then
         temp = wakeupTemp
-    elseif (otherdevices["Mode"] == "Home") then
+    elseif (otherdevices[ModeSelector] == "Home") then
         temp = normalTemp
-    elseif (otherdevices["Mode"] == "Comfort") then
+    elseif (otherdevices[ModeSelector] == "Comfort") then
         temp = comfortTemp
-    -- elseif (otherdevices["Mode"] == "Off") then
+    -- elseif (otherdevices[ModeSelector] == "Off") then
     else
         temp = offTemp
     end

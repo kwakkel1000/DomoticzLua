@@ -1,6 +1,8 @@
 package.path = package.path .. ';' .. '/home/pi/domoticz/scripts/lua/?.lua' 
 glib = require('glib')
 
+currentHour = os.date("%H")
+currentMinute = os.date("%M")
 sleepStartHour = 23
 sleepStartMinute = 0
 wakeupStartHour = 7
@@ -8,18 +10,14 @@ wakeupStartMinute = 30
 wakeupEndHour = 8
 wakeupEndMinute = 30
 
-currentHour = os.date("%H")
-currentMinute = os.date("%M")
 currentMinutes = currentHour * 60 + currentMinute
-
 sleepStart = sleepStartHour * 60 + sleepStartMinute
-
 wakeupStart = wakeupStartHour * 60 + wakeupStartMinute
 wakeupEnd = wakeupEndHour * 60 + wakeupEndMinute
 
 -- Name of the selector for living mode
 ModeSelector = 'Mode'
- 
+
 -- Name of the levels in the selector
 ComfortLevel = 'Comfort'
 HomeLevel = 'Home'
@@ -27,7 +25,7 @@ WakeupLevel = 'Wakeup'
 SleepLevel = 'Sleep'
 AwayLevel = 'Away'
 OffLevel = 'Off' --optional
- 
+
 -- Values from each level name
 ComfortLevelValue = '50'
 HomeLevelValue = '40'
