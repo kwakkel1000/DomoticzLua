@@ -16,7 +16,7 @@ thermostaatName = 'Thermostaat'
 
 commandArray = {}
 
-if (devicechanged['Mode'] ~= nil) then
+-- if (devicechanged['Mode'] ~= nil) then
     temp = ''
     if (otherdevices["Mode"] == "Away") then
         temp = awayTemp
@@ -37,6 +37,6 @@ if (devicechanged['Mode'] ~= nil) then
         set = otherdevices_idx[thermostaatName] .. "|0|" .. temp
         commandArray['UpdateDevice'] = set
     end
-end
+-- end
 
 return commandArray
