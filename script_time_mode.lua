@@ -3,7 +3,7 @@ glib = require('glib')
 
 currentHour = os.date("%H")
 currentMinute = os.date("%M")
-sleepStartHour = 23
+sleepStartHour = 0
 sleepStartMinute = 0
 wakeupStartHour = 7
 wakeupStartMinute = 30
