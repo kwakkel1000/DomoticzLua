@@ -3,10 +3,10 @@ glib = require('glib')
 
 currentHour = os.date("%H")
 currentMinute = os.date("%M")
-sleepStartHour = 0
+sleepStartHour = 22
 sleepStartMinute = 0
 wakeupStartHour = 7
-wakeupStartMinute = 30
+wakeupStartMinute = 0
 wakeupEndHour = 8
 wakeupEndMinute = 30
 
@@ -50,20 +50,22 @@ if (otherdevices['Hold'] == "Off") then
                 print("Updating '" .. ModeSelector .. "' selector to '" .. ComfortLevel .. "'")
                 commandArray['UpdateDevice'] = otherdevices_idx[ModeSelector]..'|1|'..ComfortLevelValue
             end
-        elseif (motionDetected == true) then
-            if (otherdevices[ModeSelector] ~= HomeLevel) then
-                print("Updating '" .. ModeSelector .. "' selector to '" .. HomeLevel .. "'")
-                commandArray['UpdateDevice'] = otherdevices_idx[ModeSelector]..'|1|'..HomeLevelValue
-            end
         elseif (sleepStart <= currentMinutes and wakeupStart >= currentMinutes) then
             if (otherdevices[ModeSelector] ~= SleepLevel) then
                 print("Updating '" .. ModeSelector .. "' selector to '" .. SleepLevel .. "'")
                 commandArray['UpdateDevice'] = otherdevices_idx[ModeSelector]..'|1|'..SleepLevelValue
             end
-        elseif (wakeupStart <= currentMinutes and wakeupEnd >= currentMinutes) then
+        elseif (wakeupStart <= currentMinutes or wakeupEnd >= currentMinutes) then
             if (otherdevices[ModeSelector] ~= WakeupLevel) then
                 print("Updating '" .. ModeSelector .. "' selector to '" .. WakeupLevel .. "'")
                 commandArray['UpdateDevice'] = otherdevices_idx[ModeSelector]..'|1|'..WakeupLevelValue
+            end
+        elseif (motionDetected == true) then
+            if (otherdevices[ModeSelector] ~= HomeLevel) then
+                if (otherdevices[ModeSelector] ~= AwayLevel or tonumber(otherdevices_svalues['M Gang']) > 1) then
+                    print("Updating '" .. ModeSelector .. "' selector to '" .. HomeLevel .. "'")
+                    commandArray['UpdateDevice'] = otherdevices_idx[ModeSelector]..'|1|'..HomeLevelValue
+                end
             end
         else
             if (otherdevices[ModeSelector] ~= AwayLevel) then
