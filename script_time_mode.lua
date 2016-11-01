@@ -50,12 +50,12 @@ if (otherdevices['Hold'] == "Off") then
                 print("Updating '" .. ModeSelector .. "' selector to '" .. ComfortLevel .. "'")
                 commandArray['UpdateDevice'] = otherdevices_idx[ModeSelector]..'|1|'..ComfortLevelValue
             end
-        elseif (sleepStart <= currentMinutes and wakeupStart >= currentMinutes) then
+        elseif (sleepStart <= currentMinutes or wakeupStart >= currentMinutes) then
             if (otherdevices[ModeSelector] ~= SleepLevel) then
                 print("Updating '" .. ModeSelector .. "' selector to '" .. SleepLevel .. "'")
                 commandArray['UpdateDevice'] = otherdevices_idx[ModeSelector]..'|1|'..SleepLevelValue
             end
-        elseif (wakeupStart <= currentMinutes or wakeupEnd >= currentMinutes) then
+        elseif (wakeupStart <= currentMinutes and wakeupEnd >= currentMinutes) then
             if (otherdevices[ModeSelector] ~= WakeupLevel) then
                 print("Updating '" .. ModeSelector .. "' selector to '" .. WakeupLevel .. "'")
                 commandArray['UpdateDevice'] = otherdevices_idx[ModeSelector]..'|1|'..WakeupLevelValue
