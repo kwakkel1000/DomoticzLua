@@ -16,13 +16,13 @@ if (tillSunset < tillSunrise) then
     if (dayTimeMinutes < 0) then
         dayTimeMinutes = dayTimeMinutes + 1440
     end
-    calculatedWantedLux = ((tillSunset / dayTimeMinutes) * luxDiff) + uservariables['luxLevel2'] 
+    calculatedWantedLux = ((tillSunset / dayTimeMinutes) * luxDiff) + uservariables['luxLevel2']
 else
     nightTimeMinutes = timeofday['SunsetInMinutes'] - timeofday['SunriseInMinutes']
     if (nightTimeMinutes < 0) then
         nightTimeMinutes = nightTimeMinutes + 1440
     end
-    calculatedWantedLux = ((tillSunrise / nightTimeMinutes) * luxDiff) + uservariables['luxLevel2'] 
+    calculatedWantedLux = ((tillSunrise / nightTimeMinutes) * luxDiff) + uservariables['luxLevel2']
 end
 calculatedWantedLux = math.floor(calculatedWantedLux + 0.5)
 if (calculatedWantedLux ~= uservariables['wantedLux']) then

@@ -3,12 +3,11 @@ glib = require('glib')
 
 currentHour = os.date("%H")
 currentMinute = os.date("%M")
-sleepStartHour = 22
-sleepStartMinute = 0
-wakeupStartHour = 7
-wakeupStartMinute = 0
-wakeupEndHour = 8
-wakeupEndMinute = 30
+
+sleepStartHour, sleepStartMinute = uservariables['sleepStart']:match("([^;]+):([^;]+)")
+wakeupStartHour, wakeupStartMinute = uservariables['wakeupStart']:match("([^;]+):([^;]+)")
+wakeupEndHour, wakeupEndMinute = uservariables['wakeupEnd']:match("([^;]+):([^;]+)")
+
 
 currentMinutes = currentHour * 60 + currentMinute
 sleepStart = sleepStartHour * 60 + sleepStartMinute
