@@ -26,10 +26,18 @@ else
     end
     calculatedWantedLux = ((tillSunrise / nightTimeMinutes) * luxDiff) + uservariables['luxLevel2']
 end
+
+if (timeofday['Nighttime']) then
+    calculatedWantedLux = uservariables['luxLevel2']
+else
+    calculatedWantedLux = uservariables['luxLevel1']
+end
+
 calculatedWantedLux = math.floor(calculatedWantedLux + 0.5)
 if (calculatedWantedLux ~= uservariables['wantedLux']) then
     print('wantedLux: '..tostring(calculatedWantedLux))
     commandArray['Variable:wantedLux'] = tostring(calculatedWantedLux)
 end
+    
 
 return commandArray
