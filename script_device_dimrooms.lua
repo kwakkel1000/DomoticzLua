@@ -91,10 +91,11 @@ if (devicechanged['M Woonkamer'] ~= nil or devicechanged['L Woonkamer'] ~= nil o
         glib.turnOff('DS Woonkamer')
 --        glib.turnOff('DS Woonkamer2')
 --        glib.turnOff('DS Woonkamer3')
+        glib.turnOff('DS Woonkamer4')
         setDimLevel({'L Woonkamer'}, {'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['luxLevel3'])
     else
-        if (not motionTurnOff({'M Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'})) then
-            setDimLevel({'L Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3'}, uservariables['wantedLux'])
+        if (not motionTurnOff({'M Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3', 'DS Woonkamer4'})) then
+            setDimLevel({'L Woonkamer'}, {'DS Woonkamer', 'DS Woonkamer2', 'DS Woonkamer3', 'DS Woonkamer4'}, uservariables['wantedLux'])
         end
     end
 end
@@ -121,8 +122,8 @@ end
 
 -- OVERLOOP
 if (devicechanged['M Overloop'] ~= nil or devicechanged['L Overloop'] ~= nil) then
-    if (not motionTurnOff({'M Overloop'}, {'DS Overloop'})) then
-        setDimLevel({'L Overloop'}, {'DS Overloop'}, (uservariables['wantedLux'] / 2))
+    if (not motionTurnOff({'M Overloop'}, {'DS Overloop1', 'DS Overloop2'})) then
+        setDimLevel({'L Overloop'}, {'DS Overloop1', 'DS Overloop2'}, (uservariables['wantedLux'] / 2))
     end
 end
 
@@ -147,13 +148,26 @@ if (devicechanged['M WC'] ~= nil or devicechanged['L WC'] ~= nil) then
     end
 end
 
+-- DOUCHE
+if (devicechanged['M Douche'] ~= nil or devicechanged['L Douche']) then
+    if (not motionTurnOff({'M Douche'}, {'DS Douche'})) then
+        setDimLevel({'L Douche'}, {'DS Douche'}, uservariables['wantedLux'])
+    end
+end
 
 -- ACHTERTUIN
-if (devicechanged['M Eetkamer'] ~= nil or devicechanged['L Eetkamer']) then
+if (devicechanged['M Schuur'] ~= nil or devicechanged['L Schuur']) then
     if (timeofday['Nighttime']) then
-        setDimLevel({'L Eetkamer'}, {'DS Achtertuin'}, uservariables['wantedLux']) -- L Eetkamer should change
+        setDimLevel({'L Schuur'}, {'DS Achtertuin'}, uservariables['wantedLux']) -- L Eetkamer should change
     else
         glib.turnOff('DS Achtertuin')
+    end
+end
+
+-- SCHUUR
+if (devicechanged['M Schuur'] ~= nil or devicechanged['L Schuur']) then
+    if (not motionTurnOff({'M Schuur'}, {'DS Schuur'})) then
+        setDimLevel({'L Schuur'}, {'DS Schuur'}, uservariables['wantedLux'])
     end
 end
 
